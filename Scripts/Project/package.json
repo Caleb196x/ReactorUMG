@@ -1,0 +1,36 @@
+{
+  "name": "reactorumg",
+  "private": true,
+  "version": "0.0.1",
+  "type": "commonjs",
+  "scripts": {
+    "build": "yarn install && npx tsx build.ts",
+    "build:watch": "tsc --watch",
+    "lint": "eslint .",
+    "dev": "webpack -c webpack.config.dev.js",
+    "pack": "webpack -c webpack.config.prod.js"
+  },
+  "dependencies": {
+    "e": "^0.2.33",
+    "react": "^18.0.0",
+    "react-reconciler": "^0.28.0",
+    "ts-loader": "^9.4.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.32.0",
+    "@types/mocha": "^7.0.1",
+    "@types/node": "^20.11.18",
+    "@types/react": "^18.0.0",
+    "@types/react-reconciler": "^0.28.0",
+    "eslint": "^9.32.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "fs-extra": "^11.3.0",
+    "globals": "^15.15.0",
+    "tsx": "^4.19.3",
+    "typescript": "^4.7.4",
+    "typescript-eslint": "^8.24.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
+}

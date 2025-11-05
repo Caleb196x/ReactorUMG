@@ -1,0 +1,87 @@
+text {
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0.5px;
+  color: #f3f3f3;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.35);
+}
+
+.text-demo-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-self: stretch;
+  padding: 16px;
+  background: rgba(10, 10, 10, 0.45);
+  border-radius: 12px;
+}
+
+.text-demo-header {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffe082;
+  letter-spacing: 1px;
+}
+
+.text-highlight {
+  color: #ffcd38;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.text-outline {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 2px;
+  padding: 4px 6px;
+  border-radius: 6px;
+}
+
+.text-secondary {
+  color: #9ed9ff;
+  font-style: italic;
+}
+
+.text-with-shadow {
+  text-shadow: 0 0 8px rgba(105, 210, 231, 0.6);
+}
+
+#text-from-id,
+.text-ref-style {
+  color: #7fffd4;
+  text-decoration: underline;
+  text-decoration-color: rgba(127, 255, 212, 0.35);
+}
+
+.text-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.text-input {
+  min-width: 180px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.1);
+  color: #141313;
+}
+
+.text-toggle {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #3949ab;
+  color: #fefefe;
+  transition: background 0.2s ease;
+}
+
+.text-toggle:hover {
+  background: #303f9f;
+}
+
+.text-meta {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.75);
+}

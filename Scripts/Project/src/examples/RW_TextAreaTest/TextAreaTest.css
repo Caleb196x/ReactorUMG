@@ -1,0 +1,79 @@
+textarea {
+  font-family: "Roboto", "Segoe UI", sans-serif;
+  font-size: 16px;
+  color: #f5f5f5;
+  background: rgba(15, 15, 30, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  padding: 12px;
+  resize: vertical;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+textarea:focus {
+  border-color: #64b5f6;
+  box-shadow: 0 0 0 2px rgba(100, 181, 246, 0.3);
+}
+
+textarea:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.4);
+  cursor: not-allowed;
+}
+
+.textarea-demo-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 14px;
+}
+
+.textarea-demo-header {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #ffca28;
+}
+
+.textarea-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.textarea-toggle {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  background: #3949ab;
+  color: #fefefe;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.textarea-toggle:hover {
+  background: #303f9f;
+}
+
+.textarea-meta {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.textarea-status {
+  font-size: 15px;
+  color: #81d4fa;
+}
+
+.textarea-field {
+  min-height: 110px;
+  line-height: 1.5;
+}
+
+.textarea-compact {
+  min-height: 60px;
+  line-height: 1.3;
+}

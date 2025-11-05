@@ -1,0 +1,115 @@
+/* 布局整体 */
+.tool-container {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  height: 100vh;
+  background-color: #9d1b04;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* 卡片区域 */
+.tool-card {
+  flex-direction: column;
+  background: rgb(192, 192, 190);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 24px 32px;
+  width: 400px;
+  border: 1px solid #e0e0e0;
+}
+
+/* 标题 */
+.tool-title {
+  margin: 0;
+  font-size: 22px;
+  color: #333;
+  text-align: center;
+}
+
+.tool-subtitle {
+  text-align: center;
+  color: #777;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+/* 表单布局 */
+.tool-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 4px;
+}
+
+.form-group input,
+.form-group select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #0078d4;
+}
+
+/* 按钮样式 */
+.tool-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+
+.btn-primary {
+  background-color: #0078d4;
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #005fa3;
+}
+
+.btn-secondary {
+  background-color: #e0e0e0;
+  border: none;
+  color: #333;
+}
+
+.btn-secondary:hover {
+  background-color: #d0d0d0;
+}
+
+.btn-outline {
+  background-color: white;
+  color: #0078d4;
+  border: 1px solid #0078d4;
+}
+
+.btn-outline:hover {
+  background-color: #0078d4;
+  color: white;
+}

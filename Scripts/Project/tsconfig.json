@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "assets/*": ["src/assets/*"]
+    },
+    "outDir": "../Content/JavaScript",
+    "rootDir": ".",
+    "typeRoots": [
+      "src/types",
+      "./node_modules/@types"
+    ]
+  },
+  "include": [
+    "src/**/*" 
+  ]
+}

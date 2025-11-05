@@ -1,0 +1,49 @@
+/* 基本的按钮样式 */
+.custom-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 2px solid #007bff;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: rgb(0, 0, 0);
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+/* Hover 状态 */
+.custom-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Focus 状态 */
+.custom-button.focused {
+  outline: 3px solid #ff6f61;
+}
+
+/* Disabled 状态 */
+.custom-button:disabled {
+  background-color: #d6d6d6;
+  cursor: not-allowed;
+  border-color: #999999;
+}
+
+/* 容器和状态信息的样式 */
+.button-test-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: 50px;
+}
+
+.button-status {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  color: #616060;
+}
+
+button {
+  margin-top: 10px;
+}

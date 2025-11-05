@@ -1,0 +1,148 @@
+.progress-demo {
+  width: 100%;
+  height: 22px;
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  border-radius: 12px;
+  background-color: #f3f3f3;
+  color: #198754;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-demo:focus {
+  outline: 2px solid #198754;
+  outline-offset: 3px;
+}
+
+.progress-demo.progress-paused::-webkit-progress-value,
+.progress-demo.progress-paused::-moz-progress-bar {
+  background-color: #adb5bd;
+  background-image: none;
+}
+
+.progress-demo::-webkit-progress-bar {
+  background-color: transparent;
+}
+
+.progress-demo::-webkit-progress-value {
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(25, 135, 84, 0.95),
+    rgba(25, 135, 84, 0.95) 12px,
+    rgba(25, 135, 84, 0.7) 12px,
+    rgba(25, 135, 84, 0.7) 24px
+  );
+  transition: width 0.35s ease;
+}
+
+.progress-demo::-moz-progress-bar {
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(25, 135, 84, 0.95),
+    rgba(25, 135, 84, 0.95) 12px,
+    rgba(25, 135, 84, 0.7) 12px,
+    rgba(25, 135, 84, 0.7) 24px
+  );
+}
+
+.progress-demo[data-state="indeterminate"] {
+  background-image: linear-gradient(
+    90deg,
+    rgba(25, 135, 84, 0.1) 0%,
+    rgba(25, 135, 84, 0.35) 50%,
+    rgba(25, 135, 84, 0.1) 100%
+  );
+  background-size: 200% 100%;
+  animation: progress-indeterminate 1.4s linear infinite;
+}
+
+@keyframes progress-indeterminate {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.progress-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  font-weight: 600;
+  color: #212529;
+  pointer-events: none;
+}
+
+.progress-wrapper {
+  position: relative;
+  margin-top: 12px;
+}
+
+.control-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.control-row label {
+  font-size: 13px;
+  color: #495057;
+}
+
+.control-row input[type="number"],
+.control-row input[type="range"] {
+  width: 120px;
+}
+
+.control-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.control-buttons button {
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.control-buttons button:hover {
+  background-color: #198754;
+  color: #fff;
+}
+
+.log-panel {
+  margin-top: 16px;
+  padding: 10px;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  background-color: #fff;
+  max-height: 160px;
+  overflow-y: auto;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #343a40;
+}
+
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  background-color: #e9f7ef;
+  color: #157347;
+  border-radius: 999px;
+  font-size: 12px;
+  margin-left: 6px;
+}
