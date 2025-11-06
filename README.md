@@ -72,7 +72,7 @@ UMG is powerful, but it does not have a text-first, web-like development flow. T
 Standard Node.js setup. Yarn is recommended as the package manager.
 
 ### Get the Plugin
-- Download the latest **ReactorUMG** release, or clone this project and compile from source code.
+- Download the latest **ReactorUMG** release, or clone this project.
 - Place the plugin source under `Plugins/ReactorUMG` in your UE project.
 
 ### Place the Folder
@@ -80,7 +80,7 @@ Standard Node.js setup. Yarn is recommended as the package manager.
 - Engine (optional): `<UE_5.x>/Engine/Plugins/Marketplace/ReactorUMG`
 
 ### Initialize Environment
-Run `SetupEnv.bat` in `Plugins/ReactorUMG/Tools` to set up the environment.
+Run `setup_win.bat` in `Plugins/ReactorUMG/Tools` to set up the environment.
 
 ### Enable the Plugin
 UE → `Edit > Plugins` → search **ReactorUMG** → enable → restart if needed.
