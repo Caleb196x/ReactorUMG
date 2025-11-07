@@ -108,7 +108,7 @@ Standard Node.js setup. Yarn is recommended as the package manager.
 
 > **Naming Tip:** Use `RW_`* for runtime UI and `ERW_`* for editor UI.
 
-For more information, see the project documentation. https://caleb196x.github.io/ReactorUMGOnlineDoc/
+- For more information, see the project documentation. https://caleb196x.github.io/ReactorUMGOnlineDoc/
 ---
 
 ## Project Layout Example
