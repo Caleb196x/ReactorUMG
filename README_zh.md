@@ -92,7 +92,7 @@
 + 创建完成后，系统将自动编译和加载脚本文件，双击打开可以看到初始页面。
 <img src="./docs/imgs/startup_create_ui_editor.png" alt="创建资产" width="400">
 
-+ 创建完成后插件将在插件将在`<ProjectDir>/TypeScript/src/<ProjectName>/<AssetPath>`路径下创建UI目录和自动生成必要的模板文件，具体目录和文件含义见**项目目录结构。**
++ 创建完成后插件将在`<ProjectDir>/TypeScript/src/<ProjectName>/<AssetPath>`路径下创建UI目录和自动生成必要的模板文件，具体目录和文件含义见**项目目录结构。**
 <img src="./docs/imgs/startup_dir_struct.png" alt="创建资产" width="200">
 
 + 如图中RW_Debug目录所示，**launch.tsx均为系统自动生成的UI启动脚本，请不要做任何修改，否则影响UI正常运行。**
