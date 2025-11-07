@@ -1,7 +1,7 @@
 # ReactorUMG
 ![](./docs/imgs/Cover.png)
 ReactorUMG is a helper plugin for Unreal Engine that lets you build **UMG** game UI and editor UI using **React**.  
-It is built on **Puerts/PuertsTS** and uses text-based code that works well with AI tools, so you can iterate quickly like a web front‑end workflow.
+It is built on **Puerts/PuertsTS** and uses text-based code that works well with AI tools, so you can iterate quickly like a web front‑end workflow. **It is particularly suitable for rapidly developing various in-editor UI tools using AI.**
 
 > **Keywords:** Unreal Engine, UE5, UMG, UI, Slate, React, TypeScript, Plugin, Hot Realod, Live Preview, Puerts
 
