@@ -79,6 +79,7 @@ Standard Node.js setup. Yarn is recommended as the package manager.
 Run `setup_win.bat` in `Plugins/ReactorUMG/Tools` to set up the environment.
 
 ### Enable the Plugin
+Launch your ue project. If you are using the source build, you will also need to compile the plugin code. Then enabled the plugin, 
 UE → `Edit > Plugins` → search **ReactorUMG** → enable → restart if needed.
 
 ### Create UI
