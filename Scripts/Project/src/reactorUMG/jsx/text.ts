@@ -15,21 +15,21 @@ export class TextConverter extends JSXConverter {
     private static readonly elementDefaultStyles: Record<string, TextStyleProps> = {
         'text': {
             lineHeight: '1.4',
-            color: 'black'
+            color: 'white'
         },
         'span': {
             lineHeight: '1.4',
-            color: 'black'
+            color: 'white'
         },
         'label': {
             fontWeight: '600',
             lineHeight: '1.4',
-            color: 'black'  
+            color: 'white'  
         },
         'p': {
             lineHeight: '1.6',
             marginBottom: '12px',
-            color: 'black'
+            color: 'white'
         },
         'a': {
             color: '#1e90ff',
@@ -40,31 +40,31 @@ export class TextConverter extends JSXConverter {
             fontSize: '32px',
             fontWeight: '700',
             lineHeight: '1.25',
-            color: 'black'
+            color: 'white'
         },
         'h2': {
             fontSize: '28px',
             fontWeight: '700',
             lineHeight: '1.3',
-            color: 'black'
+            color: 'white'
         },
         'h3': {
             fontSize: '24px',
             fontWeight: '600',
             lineHeight: '1.35',
-            color: 'black'
+            color: 'white'
         },
         'h4': {
             fontSize: '20px',
             fontWeight: '600',
             lineHeight: '1.4',
-            color: 'black'
+            color: 'white'
         },
         'h5': {
             fontSize: '18px',
             fontWeight: '600',
             lineHeight: '1.45',
-            color: 'black'
+            color: 'white'
         },
         'h6': {
             fontSize: '16px',
@@ -72,7 +72,7 @@ export class TextConverter extends JSXConverter {
             textTransform: 'uppercase',
             letterSpacing: '1px',
             lineHeight: '1.45',
-            color: 'black'
+            color: 'white'
         }
     };
     private readonly loweredTypeName: string;

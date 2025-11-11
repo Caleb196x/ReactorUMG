@@ -7,6 +7,7 @@ import { parseToLinearColor } from "../parsers/css_color_parser";
 import { convertLengthUnitToSlateUnit, parseScale, parseAspectRatio } from "../parsers/css_length_parser";
 import { safeParseFloat } from "../misc/utils";
 import { parseWidgetSelfAlignment } from "../parsers/alignment_parser";
+import { hasFontStyles, setupFontStyles } from "../parsers/css_font_parser";
 
 /**
  * 将容器参数以及布局参数转换中通用的功能实现在这个类中
@@ -325,6 +326,79 @@ export class ContainerConverter extends ElementConverter {
             this.initClipChildWidget(parent);
             this.initChildAlignmentForExternalSlot(childProps);
             this.proxy.appendChild(this.originalWidget, child, childTypeName, childProps);
+        }
+
+        if (childProps["_children_text_instance"]) {
+            // Mirror TextConverter.setupTextBlockProperties for inline text instances
+            if (child instanceof UE.TextBlock) {
+                const styles = this.containerStyle ?? {};
+
+                // Font family/size/weight/outline/spacing
+                if (hasFontStyles(styles)) {
+                    if (!child.Font) {
+                        const fontStyles = new UE.SlateFontInfo();
+                        setupFontStyles(child, fontStyles, styles);
+                        child.SetFont(fontStyles);
+                    } else {
+                        setupFontStyles(child, child.Font, styles);
+                    }
+                }
+
+                // Color
+                const fontColor = (styles as any)?.color ?? (styles as any)?.fontColor;
+                if (fontColor) {
+                    const rgba = parseToLinearColor(fontColor);
+                    const specifiedColor = child.ColorAndOpacity?.SpecifiedColor;
+                    if (specifiedColor) {
+                        specifiedColor.R = rgba.r;
+                        specifiedColor.G = rgba.g;
+                        specifiedColor.B = rgba.b;
+                        specifiedColor.A = rgba.a;
+                    }
+                }
+
+                // Text alignment
+                const textAlign = (styles as any)?.textAlign;
+                if (textAlign) {
+                    const v = String(textAlign).toLowerCase();
+                    if (v === 'center') {
+                        child.Justification = UE.ETextJustify.Center;
+                    } else if (v === 'right') {
+                        child.Justification = UE.ETextJustify.Right;
+                    } else {
+                        child.Justification = UE.ETextJustify.Left;
+                    }
+                }
+
+                // Text transform
+                const textTransform = (styles as any)?.textTransform;
+                if (textTransform) {
+                    const v = String(textTransform).toLowerCase();
+                    if (v === 'uppercase') {
+                        child.TextTransformPolicy = UE.ETextTransformPolicy.ToUpper;
+                    } else if (v === 'lowercase') {
+                        child.TextTransformPolicy = UE.ETextTransformPolicy.ToLower;
+                    } else {
+                        child.TextTransformPolicy = UE.ETextTransformPolicy.None;
+                    }
+                }
+
+                // Line height
+                const lineHeight: any = (styles as any)?.lineHeight;
+                if (lineHeight !== undefined && lineHeight !== null) {
+                    let resolved: number | null = null;
+                    if (typeof lineHeight === 'number') {
+                        resolved = lineHeight;
+                    } else if (typeof lineHeight === 'string' && lineHeight.trim().length > 0) {
+                        resolved = convertLengthUnitToSlateUnit(lineHeight, styles) as any;
+                    }
+                    if (resolved !== null && resolved !== undefined) {
+                        child.LineHeightPercentage = resolved as number;
+                    }
+                }
+
+                UE.UMGManager.SynchronizeWidgetProperties(child);
+            }
         }
     }
 

@@ -116,7 +116,7 @@ const hostConfig : Reconciler.HostConfig<string, any, RootContainer, UMGWidget, 
     },
     createTextInstance (text: string, rootContainer: RootContainer, hostContext: any) {
         
-        return new UMGWidget("text", {text: text}, rootContainer, hostContext);
+        return new UMGWidget("text", {text: text, _children_text_instance: true}, rootContainer, hostContext);
     },
     finalizeInitialChildren () { return false; },
     getPublicInstance (instance: UMGWidget) { return instance.native; },
