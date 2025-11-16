@@ -3,21 +3,6 @@ import * as puerts from 'puerts';
 import * as UE from 'ue';
 import { createElementConverter, ElementConverter } from './converter';
 
-type HostContext = {
-    classStack: string[];
-    currentClassName?: string;
-};
-
-function extractClassTokens(className?: string): string[] {
-    if (!className) {
-        return [];
-    }
-    return className
-        .split(' ')
-        .map((token) => token.trim())
-        .filter((token) => token.length > 0);
-}
-
 const REACT_ELEMENT_TYPE = typeof Symbol === 'function' ? Symbol.for('react.element') : 0;
 
 function isReactElement(value: any) {
@@ -155,42 +140,24 @@ class UMGWidget {
     typeName: string;
     props: any;
     rootContainer: RootContainer;
-    hostContext: HostContext;
     // isContainer: boolean;
     converter: ElementConverter;
+    parentFiber: any;
+    parentProps: any;
 
-    constructor(typeName: string, props: any, rootContainer: RootContainer, hostContext: HostContext) {
+    constructor(typeName: string, props: any, rootContainer: RootContainer, parentFiber?: any) {
         this.typeName = typeName;
         this.rootContainer = rootContainer;
-        this.hostContext = hostContext ?? { classStack: [], currentClassName: undefined };
-        this.props = this.decoratePropsWithContext(props);
+        this.parentFiber = parentFiber;
+        this.parentProps = this.getParentProps();
+        this.props = { ...props, __parentProps: this.parentProps };
         this.init();
-    }
-
-    private decoratePropsWithContext<T extends Record<string, any>>(props: T): T {
-        if (!props) {
-            return props;
-        }
-        const inheritedClasses = this.hostContext?.classStack;
-        if (!inheritedClasses || inheritedClasses.length === 0) {
-            return props;
-        }
-        const existing = (props as any).__inheritedClassNames;
-        let identical = false;
-        if (Array.isArray(existing) && existing.length === inheritedClasses.length) {
-            identical = existing.every((value, index) => value === inheritedClasses[index]);
-        }
-        if (identical) {
-            return props;
-        }
-        return { ...(props as any), __inheritedClassNames: inheritedClasses.slice() };
     }
 
     init() {
         try {
             const WidgetTreeOuter = this.rootContainer.widgetTree;
-            const decoratedProps = this.decoratePropsWithContext(this.props);
-            this.converter = createElementConverter(this.typeName, decoratedProps, WidgetTreeOuter);
+            this.converter = createElementConverter(this.typeName, this.props, WidgetTreeOuter);
             this.native = this.converter.createWidget();
             const shouldIgnore = (this.converter as any)?.ignore === true;
             if (this.native === null && !shouldIgnore) {
@@ -204,10 +171,8 @@ class UMGWidget {
 
     update(oldProps: any, newProps: any) {
         if (this.native !== null) {
-            const decoratedOld = this.decoratePropsWithContext(oldProps);
-            const decoratedNew = this.decoratePropsWithContext(newProps);
-            this.props = decoratedNew;
-            this.converter.updateWidget(this.native, decoratedOld, decoratedNew);
+            this.props = { ...newProps, __parentProps: this.parentProps };
+            this.converter.updateWidget(this.native, oldProps, newProps);
         }
     }
 
@@ -223,6 +188,17 @@ class UMGWidget {
         if (this.native && child && child.native) {
             this.converter.removeChild(this.native, child.native);
         }
+    }
+
+    private getParentProps() {
+        if (this.parentFiber) {
+            const memoizedProps = (this.parentFiber as any).memoizedProps ?? (this.parentFiber as any).memorizedProps;
+            if (memoizedProps) {
+                return memoizedProps;
+            }
+        }
+
+        return {};
     }
 }
 
@@ -250,29 +226,20 @@ class RootContainer {
     }
 }
 
-const hostConfig : Reconciler.HostConfig<string, any, RootContainer, UMGWidget, UMGWidget, any, any, HostContext, any, any, any, any, any> = {
-    getRootHostContext () { return { classStack: [], currentClassName: undefined }; },
+const hostConfig : Reconciler.HostConfig<string, any, RootContainer, UMGWidget, UMGWidget, any, any, {}, any, any, any, any, any> = {
+    getRootHostContext () { return {}; },
     //CanvasPanel()的parentHostContext是getRootHostContext返回值; 累加父元素class以便后代样式解析
-    getChildHostContext (parentHostContext: HostContext, _type: string, props: any) {
-        const parentStack = parentHostContext?.classStack ?? [];
-        const nextStack = parentStack.slice();
-        const tokens = extractClassTokens(props?.className);
-        if (tokens.length) {
-            nextStack.push(...tokens);
-        }
-        return {
-            classStack: nextStack,
-            currentClassName: props?.className
-        };
-    },    appendInitialChild (parent: UMGWidget, child: UMGWidget) { parent.appendChild(child); },
+    getChildHostContext (parentHostContext: any, _type: string, props: any) {
+        return {};
+    },
+    appendInitialChild (parent: UMGWidget, child: UMGWidget) { parent.appendChild(child); },
     appendChildToContainer (container: RootContainer, child: UMGWidget) { container.appendChild(child); },
     appendChild (parent: UMGWidget, child: UMGWidget) { parent.appendChild(child); },
-    createInstance (type: string, props: any, rootContainer: RootContainer, hostContext: HostContext, internalHandle: Reconciler.OpaqueHandle) { 
-        return new UMGWidget(type, props, rootContainer, hostContext);
+    createInstance (type: string, props: any, rootContainer: RootContainer, hostContext: any, internalHandle: Reconciler.OpaqueHandle) { 
+        return new UMGWidget(type, props, rootContainer, internalHandle.return ?? null);
     },
-    createTextInstance (text: string, rootContainer: RootContainer, hostContext: HostContext) {
-        
-        return new UMGWidget("text", {text: text, _children_text_instance: true}, rootContainer, hostContext);
+    createTextInstance (text: string, rootContainer: RootContainer, hostContext: any, internalHandle: Reconciler.OpaqueHandle) {
+        return new UMGWidget("text", {text: text, _children_text_instance: true}, rootContainer, internalHandle.return ?? null);
     },
     finalizeInitialChildren () { return false; },
     getPublicInstance (instance: UMGWidget) { return instance.native; },
@@ -292,7 +259,6 @@ const hostConfig : Reconciler.HostConfig<string, any, RootContainer, UMGWidget, 
         }
     },
   
-    //return false琛ㄧず涓嶆洿鏂帮紝鐪熷€煎皢浼氬嚭鐜板埌commitUpdate鐨剈pdatePayload閲屽ご
     prepareUpdate (instance: UMGWidget, type: string, oldProps: any, newProps: any) {
         try{
             return !deepEquals(oldProps, newProps);
