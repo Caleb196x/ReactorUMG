@@ -62,15 +62,15 @@ echo.
 echo === ReactorUMG Windows Setup ===
 echo.
 echo Checking local Node.js/npm/yarn environment...
-call :EnsureNode || exit /b 1
-call :EnsureNpm || exit /b 1
-call :EnsureYarn || exit /b 1
+call :EnsureNode || call :ExitWithPause 1
+call :EnsureNpm || call :ExitWithPause 1
+call :EnsureYarn || call :ExitWithPause 1
 
 if not exist "%THIRD_PARTY_DIR%\\" (
     echo Creating third-party directory at "%THIRD_PARTY_DIR%"
     mkdir "%THIRD_PARTY_DIR%" || (
         echo Failed to create third-party directory.
-        exit /b 1
+        call :ExitWithPause 1
     )
 )
 
@@ -82,7 +82,7 @@ if not exist "%V8_TARGET_DIR%\\" (
         @rem "try { Start-BitsTransfer -Source '%REACTORUMG_V8_URL%' -Destination '%V8_ARCHIVE%' } catch { exit 1 }"
     if errorlevel 1 (
         echo Failed to download V8 archive. You can override the URL via REACTORUMG_V8_URL.
-        exit /b 1
+        call :ExitWithPause 1
     )
 
     echo Extracting V8 archive to "%THIRD_PARTY_DIR%"
@@ -90,7 +90,7 @@ if not exist "%V8_TARGET_DIR%\\" (
         "try { tar -xzf '%V8_ARCHIVE%' -C '%THIRD_PARTY_DIR%' } catch { exit 1 }"
     if errorlevel 1 (
         echo Failed to extract V8 archive.
-        exit /b 1
+        call :ExitWithPause 1
     )
 
     echo clear v8 archive %V8_ARCHIVE%
@@ -102,13 +102,13 @@ if not exist "%V8_TARGET_DIR%\\" (
 if not exist "%TYPE_SCRIPT_DIR%\\" (
     if not exist "%TS_TEMPLATE_DIR%\\" (
         echo TypeScript template missing at "%TS_TEMPLATE_DIR%".
-        exit /b 1
+        call :ExitWithPause 1
     )
     echo Creating TypeScript workspace in "%TYPE_SCRIPT_DIR%"
     robocopy "%TS_TEMPLATE_DIR%" "%TYPE_SCRIPT_DIR%" /E /NFL /NDL /NJH /NJS >nul
     if errorlevel 8 (
         echo Failed to copy TypeScript template -- robocopy exit code !ERRORLEVEL!
-        exit /b !ERRORLEVEL!
+        call :ExitWithPause !ERRORLEVEL!
     )
 ) else (
     echo TypeScript workspace already exists at "%TYPE_SCRIPT_DIR%".
@@ -116,7 +116,7 @@ if not exist "%TYPE_SCRIPT_DIR%\\" (
 
 pushd "%TYPE_SCRIPT_DIR%" >nul 2>&1 || (
     echo Failed to enter TypeScript directory.
-    exit /b 1
+    call :ExitWithPause 1
 )
 
 echo.
@@ -127,12 +127,24 @@ popd >nul
 
 if %YARN_EXIT% NEQ 0 (
     echo Yarn build failed with exit code %YARN_EXIT%.
-    exit /b %YARN_EXIT%
+    call :ExitWithPause %YARN_EXIT%
 )
 
 echo.
 echo Setup completed successfully.
-exit /b 0
+call :ExitWithPause 0 always
+
+:ExitWithPause
+set "EXIT_CODE=%~1"
+if "%EXIT_CODE%"=="" set "EXIT_CODE=0"
+if "%EXIT_CODE%"=="0" (
+    if "%~2"=="always" (
+        pause
+    )
+) else (
+    pause
+)
+exit /b %EXIT_CODE%
 
 :EnsureNode
 where node >nul 2>&1
@@ -154,17 +166,17 @@ choice /C YN /N /M "Install Node.js now? [Y/N]: "
 if errorlevel 2 (
     echo You chose not to install Node.js.
     echo Please install Node.js + npm + yarn manually, then re-run this script.
-    exit /b 1
+    call :ExitWithPause 1
 )
 
 call :InstallNode
-if errorlevel 1 exit /b 1
+if errorlevel 1 call :ExitWithPause 1
 set "PATH=%NODE_INSTALL_DIR%;%NODE_INSTALL_DIR%\node_modules\npm\bin;%PATH%"
 set "NODE_HOME=%NODE_INSTALL_DIR%"
 where node >nul 2>&1
 if errorlevel 1 (
     echo Failed to make Node.js available after installation.
-    exit /b 1
+    call :ExitWithPause 1
 )
 echo Installed local Node.js into "%NODE_INSTALL_DIR%".
 goto :EOF
@@ -175,7 +187,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
     "try { Invoke-WebRequest -Uri '%NODE_URL%' -OutFile '%NODE_ARCHIVE%' -UseBasicParsing } catch { exit 1 }"
 if errorlevel 1 (
     echo Failed to download Node.js archive. You can override NODE_URL/NODE_VERSION via environment variables.
-    exit /b 1
+    call :ExitWithPause 1
 )
 
 echo Extracting Node.js to "%VENDOR_DIR%"
@@ -183,7 +195,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
     "try { Expand-Archive -Path '%NODE_ARCHIVE%' -DestinationPath '%VENDOR_DIR%' -Force } catch { exit 1 }"
 if errorlevel 1 (
     echo Failed to extract Node.js archive.
-    exit /b 1
+    call :ExitWithPause 1
 )
 if exist "%NODE_ARCHIVE%" del "%NODE_ARCHIVE%" >nul 2>&1
 goto :EOF
@@ -197,7 +209,7 @@ where npm >nul 2>&1
 if not errorlevel 1 goto :EOF
 
 echo npm not found even after installing Node.js.
-exit /b 1
+call :ExitWithPause 1
 
 :EnsureYarn
 where yarn >nul 2>&1
@@ -214,13 +226,13 @@ if not exist "%YARN_PREFIX%\\" (
 )
 
 echo Yarn not found. Installing Yarn via npm into "%YARN_PREFIX%".
-call npm install yarn --prefix "%YARN_PREFIX%" --no-fund --no-audit || exit /b 1
+call npm install yarn --prefix "%YARN_PREFIX%" --no-fund --no-audit || call :ExitWithPause 1
 
 set "PATH=%YARN_BIN_DIR%;%PATH%"
 where yarn >nul 2>&1
 if errorlevel 1 (
     echo Yarn still not available after installation.
-    exit /b 1
+    call :ExitWithPause 1
 )
 echo Installed Yarn locally; PATH updated for this session.
 goto :EOF
