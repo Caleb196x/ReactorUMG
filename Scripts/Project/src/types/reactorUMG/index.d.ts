@@ -418,7 +418,6 @@ declare module "reactorUMG" {
         // content
         header?: React.ReactNode | undefined;
         area?: React.ReactNode | undefined;
-        // todo@Caleb196x: 添加SetHeaderContent和SetAreaContent方法
         // 可以通过传入ref组件赋值给header和area
         onExpansionChanged?: (IsExpanded: boolean) => void;
     }
@@ -427,6 +426,8 @@ declare module "reactorUMG" {
         native: UE.ExpandableArea;
         header: React.ReactNode;
         area: React.ReactNode;
+        SetHeaderContent(InContent: React.ReactNode | undefined): void;
+        SetAreaContent(InContent: React.ReactNode | undefined): void;
     }
     
     interface ScrollBoxProps extends PanelProps {
