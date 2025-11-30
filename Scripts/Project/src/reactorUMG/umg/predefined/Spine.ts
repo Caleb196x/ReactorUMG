@@ -11,6 +11,7 @@ export class SpineConverter extends UMGConverter {
         let propsInit = false;
         const initSkin = props?.initSkin as string;
         if (initSkin && initSkin !== '') {
+            spine.InitialSkin = initSkin;
             spine.SetSkin(initSkin);
         }
 

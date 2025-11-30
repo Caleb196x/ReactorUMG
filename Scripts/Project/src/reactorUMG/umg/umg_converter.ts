@@ -17,7 +17,7 @@ export class UMGConverter extends ElementConverter {
             'Throbber',
             'ComboBox',
             'ProgressBar',
-            'RidialSlider',
+            'RadialSlider',
             'Slider',
             'Rive',
             'Spine',
@@ -28,6 +28,8 @@ export class UMGConverter extends ElementConverter {
             'SpinBox',
             'RetainerBox',
             'InvalidationBox',
+            'Viewport',
+            'UniformGrid',
 
             // todo@Caleb196x: 待实现的组件
             'ScrollBox',
@@ -63,13 +65,24 @@ export class UMGConverter extends ElementConverter {
         return proxy;
     }
 
+    private hasMethod(obj: any, methodName: string): boolean {
+        const method = obj?.[methodName];
+        return typeof method === 'function';
+    }
+
     initPanelChildSlot(slot: any, childTypeName: string, childProps: any): void {
         if (slot) {
             const childStyle = getAllStyles(childTypeName, childProps);
             const alignment = parseWidgetSelfAlignment(childStyle);
-            slot.SetHorizontalAlignment(alignment.horizontal);
-            slot.SetVerticalAlignment(alignment.vertical);
-            slot.SetPadding(alignment.padding);
+            if (this.hasMethod(slot, 'SetHorizontalAlignment')) {
+                slot.SetHorizontalAlignment(alignment.horizontal);
+            }
+            if (this.hasMethod(slot, 'SetVerticalAlignment')) {
+                slot.SetVerticalAlignment(alignment.vertical);
+            }
+            if (this.hasMethod(slot, 'SetPadding')) {
+                slot.SetPadding(alignment.padding);
+            }
         }
     }
 

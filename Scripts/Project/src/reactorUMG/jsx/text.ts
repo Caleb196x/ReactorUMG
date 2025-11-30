@@ -262,6 +262,8 @@ export class TextConverter extends JSXConverter {
         if (!this.isValidTextBlock(textBlock)) {
             return;
         }
+
+        textBlock.AutoWrapText = true;
         const styles = this.normalizeStyles(props);
         if (hasFontStyles(styles)) {
             if (!textBlock.Font) {

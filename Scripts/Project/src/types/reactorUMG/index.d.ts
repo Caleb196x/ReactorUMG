@@ -575,7 +575,7 @@ declare module "reactorUMG" {
         onCheckStateChanged?: (InChecked: boolean) => void;
     }
 
-    class Checkbox extends React.Component<CheckBoxProps> {
+    class CheckBox extends React.Component<CheckBoxProps> {
         native: UE.CheckBox;
     }
 

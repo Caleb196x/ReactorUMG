@@ -257,6 +257,10 @@ export function setupFontStyles(outer: UE.Object, font: UE.SlateFontInfo, fontSt
     if (fontStyle?.outlineWidth) {
         font.OutlineSettings.OutlineSize = convertLengthUnitToSlateUnit(fontStyle?.outlineWidth, fontStyle);
     }
+
+    if (fontStyle?.whiteSpace && fontStyle.whiteSpace == "nowrap") {
+        (outer as UE.TextBlock).AutoWrapText = false;
+    }
 }
 
 export function hasFontStyles(style: any) {
