@@ -418,7 +418,6 @@ declare module "reactorUMG" {
         // content
         header?: React.ReactNode | undefined;
         area?: React.ReactNode | undefined;
-        // 可以通过传入ref组件赋值给header和area
         onExpansionChanged?: (IsExpanded: boolean) => void;
     }
 

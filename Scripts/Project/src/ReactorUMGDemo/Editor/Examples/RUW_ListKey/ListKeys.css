@@ -1,0 +1,12 @@
+/* List & keys demo styles */
+.list-wrapper { display: flex; flex-direction: column; gap: 12px; padding: 16px; background: rgba(0,0,0,0.45); border-radius: 12px; }
+.list-title { font-size: 20px; font-weight: 600; color: #ffcc80; }
+.list-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+.list-button { padding: 6px 10px; border-radius: 6px; border: none; background: #00695c; color: #fff; }
+.list-items { display: flex; flex-direction: column; gap: 8px; }
+.list-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-radius: 8px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); }
+.list-item:hover { background: rgba(255,255,255,0.14); }
+.list-item-title { color: #e0f7fa; }
+.list-item-remove { padding: 4px 8px; border: 1px solid #b71c1c; background: #ef5350; color: #fff; border-radius: 6px; }
+.list-meta { color: #80deea; font-size: 14px; }
+

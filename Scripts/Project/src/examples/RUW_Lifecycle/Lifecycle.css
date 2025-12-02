@@ -1,0 +1,9 @@
+/* Lifecycle demo styles */
+.life-wrapper { display: flex; flex-direction: column; gap: 12px; padding: 16px; background: rgba(0,0,0,0.45); border-radius: 12px; }
+.life-title { font-size: 20px; font-weight: 600; color: #ffab91; }
+.life-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.life-button { padding: 6px 10px; border-radius: 6px; border: none; background: #8e24aa; color: #fff; }
+.life-counter { color: #b2dfdb; }
+.life-log { color: #ce93d8; font-size: 14px; }
+.life-logbox { max-height: 120px; overflow: auto; border: 1px dashed #777; padding: 6px; border-radius: 8px; }
+

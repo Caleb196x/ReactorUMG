@@ -151,7 +151,7 @@ export function convertLUToSUWithUnitType(length: string, fontSize?: number): { 
     return { type: "fr", value: 1 };
 }
 
-export function parseScale(scale: string): UE.Vector2D {
+export function parseScale(scale: string | number): UE.Vector2D {
     if (!scale || scale === "none") {
         return new UE.Vector2D(1, 1);
     }

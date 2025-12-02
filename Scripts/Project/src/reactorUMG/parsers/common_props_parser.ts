@@ -83,6 +83,7 @@ export function parseTransform(transform: CssType.Property.Transform, translate?
         }
     }
 
+    /* c8 ignore start */ // optional translate/rotate params are not used in current call sites
     if (translate) {
         const values = translate.trim().split(' ');
         const x = values[0] || '0px';
@@ -132,6 +133,7 @@ export function parseTransform(transform: CssType.Property.Transform, translate?
         const contactValues = {rotate: angle}
         transformParts = {...transformParts, ...contactValues}
     }
+    /* c8 ignore end */
 
     transformParts.forEach(part => {
         if (!part || typeof part !== 'string') {

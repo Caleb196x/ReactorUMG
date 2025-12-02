@@ -1,0 +1,8 @@
+/* Refs demo styles */
+.refs-wrapper { display: flex; flex-direction: column; gap: 12px; padding: 16px; background: rgba(0,0,0,0.45); border-radius: 12px; }
+.refs-title { font-size: 20px; font-weight: 600; color: #90caf9; }
+.refs-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.refs-input { padding: 6px 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.35); background: rgba(255,255,255,0.1); color: #141313; }
+.refs-btn { padding: 6px 10px; border-radius: 6px; border: none; background: #00897b; color: #fff; }
+.refs-meta { color: #b3e5fc; font-size: 14px; }
+

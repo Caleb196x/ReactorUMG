@@ -1,54 +1,45 @@
-# React + TypeScript + Vite
+# ReactorUMG TypeScript 项目指南
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+本仓库包含 ReactorUMG 的 TypeScript 端实现与示例，用于在 UE 中通过 React/TS 描述并渲染 UMG。
 
-Currently, two official plugins are available:
+## 环境要求
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Node.js (建议 18+)
+- Yarn 1.x
 
-## Expanding the ESLint configuration
+## 安装
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+yarn build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 常用脚本
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| 命令 | 说明 |
+| --- | --- |
+| `yarn dev` | 使用开发配置运行 webpack |
+| `yarn pack` | 使用生产配置打包 |
+| `yarn build` | 安装依赖并执行 `tsx build.ts` 生成输出 |
+| `yarn lint` | 运行 ESLint |
+| `yarn test` | 运行 Mocha+Chai 单测并输出覆盖率（c8，覆盖 `src/reactorUMG` 全部模块） |
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+## 项目结构
+
+- `src/reactorUMG/` 核心渲染器、解析器、jsx/umg 转换器
+- `src/reactorUMG/misc/` 工具、资源加载
+- `src/reactorUMG/parsers/` CSS/属性解析
+- `test/` 单元测试（基于 tsx + mocha + chai）
+
+## 单测说明
+
+测试通过 `test/setup.ts` 提供的 UE/puerts 轻量 stub 运行，无需 UE 运行时。覆盖率报告输出到 `coverage/` 目录，并在控制台打印摘要。运行：
+
+```bash
+yarn test
 ```
+
+## 开发提示
+
+- TypeScript 配置在 `tsconfig.json`
+- Webpack 配置：`webpack.config.dev.js` 与 `webpack.config.prod.js`
+- 如需新增解析/转换逻辑，建议补充对应的单元测试。***

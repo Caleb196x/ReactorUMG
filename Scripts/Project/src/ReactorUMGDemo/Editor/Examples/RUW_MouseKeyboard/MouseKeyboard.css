@@ -1,0 +1,8 @@
+/* Mouse & keyboard demo */
+.mk-wrapper { display: flex; flex-direction: column; gap: 12px; padding: 16px; background: rgba(0,0,0,0.45); border-radius: 12px; }
+.mk-title { font-size: 20px; font-weight: 600; color: #ffe082; }
+.mk-area { position: relative; border: 2px dashed #888; height: 140px; background: rgba(255,255,255,0.08); border-radius: 10px; }
+.mk-coords { position: absolute; left: 8px; top: 8px; color: #b2ebf2; }
+.mk-keys { color: #ce93d8; font-size: 14px; }
+.mk-btn { padding: 6px 10px; border-radius: 6px; border: none; background: #6d4c41; color: #fff; }
+

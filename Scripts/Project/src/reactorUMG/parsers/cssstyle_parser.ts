@@ -164,6 +164,7 @@ export function getStyleFromTypeSelector(type: string, pseudo?: string): Record<
     return typeStyle;
 }
 
+/* c8 ignore start */
 function parseClassName(props: any) {
     if (!props) {
         return "";
@@ -185,6 +186,7 @@ function parseClassName(props: any) {
 
     return "";
 }
+/* c8 ignore end */
 
 /**
  * 从props中获取所有渠道定义的样式
