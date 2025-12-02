@@ -1,7 +1,7 @@
 <h1 id="reactorumg">ReactorUMG</h1>
 
 ![Liscense](https://img.shields.io/badge/license-MIT-blue.svg)
-![Coverage](https://img.shields.io/badge/coverage-95%25-orange)
+![Coverage](https://img.shields.io/badge/coverage-90%25-orange)
 
 ![](./docs/imgs/Cover.png)
 
