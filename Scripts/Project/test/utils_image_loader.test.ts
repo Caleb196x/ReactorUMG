@@ -80,6 +80,12 @@ describe('image_loader', () => {
     expect(texture).to.deep.equal({ texturePath: 'path/to.png' });
     const missing = ImageLoader.loadTextureFromImagePath('');
     expect(missing).to.be.undefined;
+
+    const original = UE.KismetRenderingLibrary.ImportFileAsTexture2D;
+    UE.KismetRenderingLibrary.ImportFileAsTexture2D = () => undefined;
+    const fail = ImageLoader.loadTextureFromImagePath('missing.png');
+    expect(fail).to.be.undefined;
+    UE.KismetRenderingLibrary.ImportFileAsTexture2D = original;
   });
 
   it('invokes LoadBrushImageObject with delegates', () => {
@@ -89,6 +95,8 @@ describe('image_loader', () => {
     const obj = {};
     ImageLoader.loadBrushImageObject(obj as any, '/img.png', 'dir', false, () => {}, () => {});
     expect(calls.length).to.equal(1);
+    ImageLoader.loadBrushImageObject(obj as any, '/img.png', undefined, true, undefined, undefined);
+    expect(calls.length).to.equal(2);
     UE.UMGManager.LoadBrushImageObject = original;
   });
 });

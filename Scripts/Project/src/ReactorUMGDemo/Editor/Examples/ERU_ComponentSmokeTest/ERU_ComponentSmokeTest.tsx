@@ -61,9 +61,9 @@ export class ERU_ComponentSmokeTest extends React.Component<Record<string, never
                             <p style={styles.empty}>等待测试结果...</p>
                         ) : (
                             logs.map((line, idx) => (
-                                <pre key={idx} style={styles.logLine}>
+                                <span key={idx} style={styles.logLine}>
                                     {line}
-                                </pre>
+                                </span>
                             ))
                         )}
                     </div>

@@ -3,7 +3,7 @@ import { safeParseFloat } from "../misc/utils";
 type RGBA = { r: number; g: number; b: number; a: number };
 
 // rgb到linear color的转换表
-const RGBToLinearColor = [
+export const RGBToLinearColor = [
   0.0,
 	0.000303526983548838, 0.000607053967097675, 0.000910580950646512, 0.00121410793419535, 0.00151763491774419,
 	0.00182116190129302, 0.00212468888484186, 0.0024282158683907, 0.00273174285193954, 0.00303526983548838,

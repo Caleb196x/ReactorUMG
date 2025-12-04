@@ -7,7 +7,7 @@
     "build": "yarn install && npx tsx build.ts",
     "build:watch": "tsc --watch",
     "lint": "eslint .",
-    "test": "c8 -r text -r lcov -r html --include src/reactorUMG/**/* tsx ./node_modules/mocha/bin/mocha --require test/setup.ts --extension ts \"test/**/*.test.ts\"",
+    "test": "c8 -r text -r lcov -r html --include src/reactorUMG/**/* tsx ./node_modules/mocha/bin/mocha --exit --require test/setup.ts --extension ts \"test/**/*.test.ts\"",
     "dev": "webpack -c webpack.config.dev.js",
     "pack": "webpack -c webpack.config.prod.js"
   },

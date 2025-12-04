@@ -37,12 +37,11 @@ export class FlexConverter extends ContainerConverter {
 
         if (display && display === 'flex' && !flexDirection) {
             flexDirection = 'row'; // Default to row if display is flex
-        } else {
+        } else if (!flexDirection) {
             flexDirection = 'column'; // Default to column if not specified
         }
 
         const normalized = flexDirection.trim().toLowerCase();
-
         return [
             normalized.startsWith('row'),
             normalized.endsWith('-reverse')
@@ -203,9 +202,9 @@ export class FlexConverter extends ContainerConverter {
     private applyFlexSizingToSlot(slot: UE.PanelSlot, childStyle: any): void {
         const flexGrowValue = this.getFlexGrowValue(childStyle);
         if (flexGrowValue === null || isNaN(flexGrowValue)) {
-            if (slot instanceof UE.HorizontalBoxSlot) {
-                slot.SetSize(new UE.SlateChildSize(1, UE.ESlateSizeRule.Fill));
-            }
+            // if (slot instanceof UE.HorizontalBoxSlot) {
+            //     slot.SetSize(new UE.SlateChildSize(1, UE.ESlateSizeRule.Fill));
+            // }
 
             return;
         }
@@ -215,7 +214,7 @@ export class FlexConverter extends ContainerConverter {
         } else if (slot instanceof UE.WrapBoxSlot) {
             slot.SetFillEmptySpace(flexGrowValue > 0);
             if (flexGrowValue > 0) {
-                slot.SetFillSpanWhenLessThan(0);
+                slot.SetFillSpanWhenLessThan(flexGrowValue);
             }
         }
     }

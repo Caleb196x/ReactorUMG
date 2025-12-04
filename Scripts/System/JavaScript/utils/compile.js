@@ -31,7 +31,7 @@ function getFileOptionSystem(callObject) {
         return res;
     }
     function write(s) {
-        console.log(s);
+        console.debug(s);
     }
     function readFile(path, encoding) {
         let data = puerts_1.$ref(undefined);
@@ -115,7 +115,6 @@ function compileInternal(service, sourceFilePath, program, compileErrorReporter)
                 let emitOutput = service.getEmitOutput(sourceFilePath);
                 if (!emitOutput.emitSkipped) {
                     emitOutput.outputFiles.forEach(output => {
-                        console.log(`compileInternal: write ${output.name} ...`);
                         UE.FileSystemOperation.WriteFile(output.name, output.text);
                     });
                 }

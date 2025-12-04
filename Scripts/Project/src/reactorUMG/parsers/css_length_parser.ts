@@ -120,6 +120,12 @@ export function convertLUToSUWithUnitType(length: string, fontSize?: number): { 
         return result;
     }
 
+    // explicit fr support
+    if (typeof length === 'string' && length.trim().toLowerCase().endsWith('fr')) {
+        const v = parseFloat(length);
+        return { type: "fr", value: isNaN(v) ? 0 : v };
+    }
+
     if (length === "thin") {
         return { type: "px", value: 12 };
     } else if (length === "medium") {
@@ -134,7 +140,7 @@ export function convertLUToSUWithUnitType(length: string, fontSize?: number): { 
     }
 
     // Match numeric value and unit
-    const match = length.match(/^(\d*\.?\d+)([a-z%]*)$/);
+    const match = length.match(/^(-?\d*\.?\d+)([a-z%]*)$/);
     if (match) {
         let numValue = safeParseFloat(match[1]);
         const unit = match[2] || "px";
@@ -197,5 +203,4 @@ export function parseAspectRatio(aspectRatio: string) {
 
     return 1.0;
 }
-
 

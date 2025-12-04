@@ -90,7 +90,7 @@ var global = global || (function () { return this; }());
                 let orgSourceInfo = await sendCommand("Debugger.getScriptSource", {scriptId:"" + scriptId});
                 source = ("(function (exports, require, module, __filename, __dirname) { " + source + "\n});");
                 if (orgSourceInfo.scriptSource == source) {
-                    console.log(`source not changed, skip ${url}`);
+                    console.debug(`source not changed, skip ${url}`);
                     return;
                 }
                 let m = puerts.getModuleByUrl(url);

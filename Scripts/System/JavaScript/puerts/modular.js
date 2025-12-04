@@ -196,7 +196,7 @@ var global = global || (function () { return this; }());
             registerStyleClass(mediaKey, mediaStyles);
         }
 
-        console.log(styleClassesCache);
+        console.debug(styleClassesCache);
     }
     
     function getModuleBySID(id) {
@@ -230,7 +230,6 @@ var global = global || (function () { return this; }());
     
     function getSourceLengthFromBytecode(buf, isESM) {
         let sourceHash = (new Uint32Array(buf))[2];
-        //console.log(`sourceHash:${sourceHash}`);
         const kModuleFlagMask = (1 << 31);
         const mask = isESM ? kModuleFlagMask : 0;
 
@@ -319,7 +318,7 @@ var global = global || (function () { return this; }());
                 script = generateEmptyCode(getSourceLengthFromBytecode(bytecode));
             }
             } else {
-                console.log("picture file, css file and anim file will not be loaded");
+                console.warn("picture file, css file and anim file will not be loaded");
             }
 
             try {
@@ -349,10 +348,6 @@ var global = global || (function () { return this; }());
                         m.exports = packageConfigure;
                     }
                 } else if (isPictureFile) {
-                    // support import image
-                    // todo@Caleb196x: 导入性能优化x10
-                    // todo@Caleb196x: 通过hash判断文件内容是否发生改变
-                    // let texture = readImageAsTexture(fullPath); 
                     m.exports = {'default': fullPath};
                 } else if (isCssFile) {
                     // support import css
@@ -369,7 +364,7 @@ var global = global || (function () { return this; }());
                     }
                 }
             } catch(e) {
-                console.log("read file:  " + fullPath + " with exception " + e);
+                console.warn("read file:  " + fullPath + " with exception " + e);
                 localModuleCache[moduleName] = undefined;
                 moduleCache[key] = undefined;
                 throw e;

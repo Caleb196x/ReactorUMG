@@ -329,6 +329,7 @@ void FReactDeclarationGenerator::GenClass(UClass* Class)
 
 void UWidgetDeclarationGenerator::Gen_Implementation(const FString& OutDir) const
 {
-	FReactDeclarationGenerator ReactDeclarationGenerator;
-	ReactDeclarationGenerator.GenReactDeclaration(OutDir);
+	/* do not change ReactorUMG/index.ts */
+	// FReactDeclarationGenerator ReactDeclarationGenerator;
+	// ReactDeclarationGenerator.GenReactDeclaration(OutDir);
 }

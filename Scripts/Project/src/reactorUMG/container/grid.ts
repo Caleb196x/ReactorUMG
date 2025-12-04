@@ -20,29 +20,29 @@ export class GridConverter extends ContainerConverter {
     // Helper method to parse grid template values
     private parseGridTemplate(template: string): Array<{type: string, value: number}> {
         const result: Array<{type: string, value: number}> = [];
-        
-        // Handle repeat syntax: repeat(3, 1fr)
-        if (template.includes('repeat(')) {
-            const repeatRegex = /repeat\((\d+),\s*([^)]+)\)/g;
-            let match;
-            
-            while ((match = repeatRegex.exec(template)) !== null) {
-                const count = parseInt(match[1], 10);
-                const value = match[2].trim();
-                
-                // Create the specified number of identical definitions
-                for (let i = 0; i < count; i++) {
-                    result.push(convertLUToSUWithUnitType(value));
-                }
-            }
-        } else {
-            // Handle normal space-separated values: 1fr auto 100px
-            const values = template.split(/\s+/);
-            for (const value of values) {
-                result.push(convertLUToSUWithUnitType(value));
-            }
+        if (!template || typeof template !== 'string') {
+            return result;
         }
-        
+
+        // Tokenize while preserving order, supporting mixed repeat() and individual tokens
+        const tokens = template.match(/repeat\(\s*\d+\s*,\s*[^)]+\)|[^ \t\r\n]+/g) || [];
+        for (const raw of tokens) {
+            const token = raw.trim();
+            if (!token) continue;
+
+            const repeatMatch = token.match(/^repeat\(\s*(\d+)\s*,\s*([^)]+)\)$/);
+            if (repeatMatch) {
+                const count = parseInt(repeatMatch[1], 10);
+                const inner = repeatMatch[2].trim();
+                for (let i = 0; i < count; i++) {
+                    result.push(convertLUToSUWithUnitType(inner));
+                }
+                continue;
+            }
+
+            result.push(convertLUToSUWithUnitType(token));
+        }
+
         return result;
     }
 
@@ -204,8 +204,8 @@ export class GridConverter extends ContainerConverter {
         const widget = new UE.GridPanel(this.outer);
         // Initialize grid settings from container styles
         this.initGapsFromStyle(this.containerStyle);
-        this.defaultJustifyItems = this.containerStyle?.justifyItems ?? (this.containerStyle?.placeItems?.split(/\s+/)?.[1] ?? 'stretch');
-        this.defaultAlignItems = this.containerStyle?.alignItems ?? (this.containerStyle?.placeItems?.split(/\s+/)?.[0] ?? 'stretch');
+        this.defaultJustifyItems = this.containerStyle?.justifyItems ?? (this.containerStyle?.placeItems?.split(/\s+/)?.[1] ?? 'center');
+        this.defaultAlignItems = this.containerStyle?.alignItems ?? (this.containerStyle?.placeItems?.split(/\s+/)?.[0] ?? 'center');
         const autoFlow = (this.containerStyle?.gridAutoFlow || 'row').toString().toLowerCase();
         this.autoFlow = autoFlow.startsWith('column') ? 'column' : 'row';
         // Support gridTemplate and individual templates
@@ -473,7 +473,7 @@ export class GridConverter extends ContainerConverter {
         const count = grid.GetChildrenCount();
         for (let i = 0; i < count; i++) {
             const child = grid.GetChildAt(i);
-            let slot = (child as any)?.Slot as UE.GridSlot;
+            let slot = (child as UE.Widget)?.Slot as UE.GridSlot;
             if (!(slot instanceof UE.GridSlot)) {
                 const slotsArr = (grid as any)?.Slots;
                 if (slotsArr && typeof slotsArr.Get === 'function') {

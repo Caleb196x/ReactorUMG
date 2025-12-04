@@ -144,9 +144,9 @@ export class TextAreaConverter extends JSXConverter {
     update(widget: UE.Widget, oldProps: any, changedProps: any): void {
         const textArea = widget as UE.MultiLineEditableText;
         const propsChanged = this.initTextAreaProps(textArea, changedProps);
-        this.applyStyles(textArea, this.props);
         const styleChanged = !!changedProps && (('style' in changedProps) || ('className' in changedProps) || ('id' in changedProps));
         if (propsChanged || styleChanged) {
+            this.applyStyles(textArea, changedProps);
             UE.UMGManager.SynchronizeWidgetProperties(textArea);
         }
     }

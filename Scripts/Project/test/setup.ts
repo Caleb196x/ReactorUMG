@@ -57,6 +57,8 @@ class SlateBrush {
   ResourceObject: any = null;
 }
 
+class EventReply {}
+
 class WidgetTransform {
   constructor(
     public Translation: Vector2D,
@@ -82,33 +84,27 @@ class SlateFontInfo {
   OutlineSettings = { OutlineSize: 0, OutlineColor: { R: 0, G: 0, B: 0, A: 0 } };
 }
 
-class HorizontalBoxSlot {
-  horizontal?: number;
-  vertical?: number;
-  size?: SlateChildSize;
-  SetHorizontalAlignment = (value: number) => { this.horizontal = value; };
-  SetVerticalAlignment = (value: number) => { this.vertical = value; };
-  SetSize = (value: SlateChildSize) => { this.size = value; };
-}
-
-class VerticalBoxSlot {
-  horizontal?: number;
-  vertical?: number;
-  size?: SlateChildSize;
-  SetHorizontalAlignment = (value: number) => { this.horizontal = value; };
-  SetVerticalAlignment = (value: number) => { this.vertical = value; };
-  SetSize = (value: SlateChildSize) => { this.size = value; };
-}
-
 class TextBlock {
   AutoWrapText = true;
+  ColorAndOpacity: any = { SpecifiedColor: { R: 0, G: 0, B: 0, A: 0 } };
+  Font: SlateFontInfo | undefined;
+  Justification = 0;
+  LineHeightPercentage = 0;
+  TextTransformPolicy = 0;
+  text = '';
+  SetText = (v: string) => { this.text = v; };
+  SetFont = (font: SlateFontInfo) => { this.Font = font; };
 }
 
 class SlateSound {}
 
 class PanelSlot {}
 
-class PanelWidget {
+class Widget {
+  Slot: PanelSlot | null = null;
+}
+
+class PanelWidget extends Widget {
   children: any[] = [];
   AddChild = (child: any) => {
     this.children.push(child);
@@ -117,6 +113,60 @@ class PanelWidget {
   RemoveChild = (child: any) => {
     this.children = this.children.filter(c => c !== child);
   };
+  GetChildrenCount = () => this.children.length;
+  GetChildAt = (index: number) => this.children[index];
+  GetDesiredSize = () => new Vector2D(0, 0);
+}
+
+class ButtonSlot {
+  horizontal?: number;
+  vertical?: number;
+  padding?: Margin;
+  SetHorizontalAlignment = (value: number) => { this.horizontal = value; };
+  SetVerticalAlignment = (value: number) => { this.vertical = value; };
+  SetPadding = (value: Margin) => { this.padding = value; };
+}
+
+class SizeBoxSlot {
+  horizontal?: number;
+  vertical?: number;
+  padding?: Margin;
+  SetHorizontalAlignment = (value: number) => { this.horizontal = value; };
+  SetVerticalAlignment = (value: number) => { this.vertical = value; };
+  SetPadding = (value: Margin) => { this.padding = value; };
+}
+
+class ScaleBoxSlot {
+  horizontal?: number;
+  vertical?: number;
+  padding?: Margin;
+  SetHorizontalAlignment = (value: number) => { this.horizontal = value; };
+  SetVerticalAlignment = (value: number) => { this.vertical = value; };
+  SetPadding = (value: Margin) => { this.padding = value; };
+}
+
+class SizeBox extends PanelWidget {
+  WidthOverride = 0;
+  HeightOverride = 0;
+  MinDesiredWidth = 0;
+  MaxDesiredWidth = 0;
+  MaxAspectRatio = 0;
+  MaxDesiredHeight = 0;
+  MinDesiredHeight = 0;
+  MinAspectRatio = 0;
+  /*
+    *When specified, ignore the content's desired size and report the HeightOverride as the Box's desired height.
+    */
+  SetHeightOverride(InHeightOverride: number) : void { this.HeightOverride = InHeightOverride; }
+  SetMaxAspectRatio(InMaxAspectRatio: number) : void { this.MaxAspectRatio = InMaxAspectRatio; }
+  SetMinAspectRatio(InMinAspectRatio: number) : void { this.MinAspectRatio = InMinAspectRatio; }
+
+  SetMaxDesiredHeight(InMaxDesiredHeight: number) : void { this.MaxDesiredHeight = InMaxDesiredHeight; }
+  SetWidthOverride = (v: number) => { this.WidthOverride = v; };
+  SetMinDesiredWidth = (v: number) => { this.MinDesiredWidth = v; };
+  SetMaxDesiredWidth = (v: number) => { this.MaxDesiredWidth = v; };
+  GetContent = () => this.children[0];
+  AddChild = (child: any) => { this.children.push(child); return new SizeBoxSlot(); };
 }
 
 class Button extends PanelWidget {
@@ -133,6 +183,7 @@ class Button extends PanelWidget {
   OnReleased = createEventArray();
   OnHovered = createEventArray();
   OnUnhovered = createEventArray();
+  private hasFocus = false;
 
   constructor(public outer: any) {
     super();
@@ -146,9 +197,372 @@ class Button extends PanelWidget {
     };
   }
 
+  AddChild = (child: any) => {
+    this.children.push(child);
+    return new ButtonSlot();
+  };
+
   SetClickMethod = (m: number) => { this._clickMethod = m; };
   SetTouchMethod = (m: number) => { this._touchMethod = m; };
   SetPressMethod = (m: number) => { this._pressMethod = m; };
+  SetBackgroundColor = (c: LinearColor) => { this.BackgroundColor = c; };
+  SetColorAndOpacity = (c: LinearColor) => { this.ColorAndOpacity = c; };
+  SetIsEnabled = (enabled: boolean) => { this.bIsEnabled = enabled; };
+  SetKeyboardFocus = () => { this.hasFocus = true; };
+  HasKeyboardFocus = () => this.hasFocus;
+  HasAnyUserFocus = () => this.hasFocus;
+}
+
+class CheckBox extends PanelWidget {
+  WidgetStyle: any = { CheckBoxType: 0 };
+  checked = false;
+  enabled = true;
+  OnCheckStateChanged = createEventArray();
+  constructor(public outer: any) { super(); }
+  SetIsChecked = (v: boolean) => { this.checked = v; };
+  SetIsEnabled = (v: boolean) => { this.enabled = v; };
+}
+
+class Slider extends Widget {
+  value?: number;
+  min?: number;
+  max?: number;
+  step?: number;
+  barColor?: any;
+  handleColor?: any;
+  OnValueChanged = createEventArray();
+  constructor(public outer: any) {super();}
+  SetValue = (v: number) => { this.value = v; };
+  SetMinValue = (v: number) => { this.min = v; };
+  SetMaxValue = (v: number) => { this.max = v; };
+  SetStepSize = (v: number) => { this.step = v; };
+  SetSliderBarColor = (v: any) => { this.barColor = v; };
+  SetSliderHandleColor = (v: any) => { this.handleColor = v; };
+}
+
+class EditableText extends Widget  {
+  text?: string;
+  hint?: string;
+  enabled = true;
+  readOnly = false;
+  password = false;
+  Font: SlateFontInfo | undefined;
+  WidgetStyle: any = { Font: undefined };
+  OnTextChanged = createEventArray();
+  constructor(public outer: any) {super();}
+  SetHintText = (v: any) => { this.hint = v; };
+  SetText = (v: any) => { this.text = v; };
+  SetIsEnabled = (v: boolean) => { this.enabled = v; };
+  SetIsReadOnly = (v: boolean) => { this.readOnly = v; };
+  SetIsPassword = (v: boolean) => { this.password = v; };
+  SetFont = (font: SlateFontInfo) => { this.Font = font; this.WidgetStyle.Font = font; };
+}
+
+class Image extends Widget {
+  Brush: SlateBrush = new SlateBrush();
+  ColorAndOpacity: LinearColor = new LinearColor(1, 1, 1, 1);
+  resource?: any;
+  desiredSize?: Vector2D;
+  OnMouseButtonDownEvent: any = { Bind: (fn: any) => { this._mouseDown = fn; } };
+  private _mouseDown?: Function;
+  constructor(public outer: any) {super();}
+  SetBrushResourceObject = (obj: any) => { this.resource = obj; };
+  SetDesiredSizeOverride = (v: Vector2D) => { this.desiredSize = v; };
+  triggerMouseDown = () => this._mouseDown?.();
+}
+
+class ScaleBox extends PanelWidget {
+  Stretch: number = 0;
+  UserSpecifiedScale = 0;
+  constructor(public outer: any) { super(); }
+  SetStretch = (v: number) => { this.Stretch = v; };
+  SetUserSpecifiedScale = (v: number) => { this.UserSpecifiedScale = v; };
+  AddChild = (child: any) => { this.children.push(child); return new ScaleBoxSlot(); };
+}
+
+class ProgressBar extends Widget {
+  WidgetStyle: any = { BackgroundImage: new SlateBrush() };
+  FillColorAndOpacity?: LinearColor;
+  percent = 0;
+  marquee = false;
+  constructor(public outer: any) {super();}
+  SetFillColorAndOpacity = (c: LinearColor) => { this.FillColorAndOpacity = c; };
+  SetIsMarquee = (v: boolean) => { this.marquee = v; };
+  SetPercent = (p: number) => { this.percent = p; };
+}
+
+const createOptionArray = () => {
+  const arr: any[] = [];
+  (arr as any).Add = (v: any) => arr.push(v);
+  return arr as any;
+};
+
+class ComboBoxString extends Widget {
+  WidgetStyle: any = { ComboButtonStyle: { ButtonStyle: { Normal: new SlateBrush(), Hovered: new SlateBrush(), Pressed: new SlateBrush(), Disabled: new SlateBrush() } } };
+  DefaultOptions: any = createOptionArray();
+  Options: string[] = [];
+  SelectedOption: string | undefined;
+  Font: SlateFontInfo | undefined;
+  ForegroundColor: SlateColor | undefined;
+  bIsEnabled = true;
+  bIsFocusable = true;
+  OnSelectionChanged = createEventArray();
+  constructor(public outer: any) {super();}
+  ClearOptions = () => { this.Options = []; this.DefaultOptions = createOptionArray(); };
+  AddOption = (opt: string) => { this.Options.push(opt); };
+  SetSelectedOption = (opt: string) => { this.SelectedOption = opt; };
+}
+
+class WrapBoxSlot {
+  bFillEmptySpace = false;
+  padding?: Margin;
+  fillSpanWhenLessThan?: number;
+  SetHorizontalAlignment = (_: number) => {};
+  SetVerticalAlignment = (_: number) => {};
+  SetPadding = (p: Margin) => { this.padding = p; };
+  SetFillEmptySpace = (v: boolean) => { this.bFillEmptySpace = v; };
+  SetFillSpanWhenLessThan = (v: number) => { this.fillSpanWhenLessThan = v; };
+}
+
+class WrapBox extends PanelWidget {
+  Orientation = 0;
+  padding?: Vector2D;
+  horizontalAlignment?: number;
+  constructor(public outer: any) { super(); }
+  AddChildToWrapBox = (child: any) => {
+    this.children.push(child);
+    const slot = new WrapBoxSlot();
+    (child as any).Slot = slot;
+    (this as any).Slots = (this as any).Slots || [];
+    (this as any).Slots.push(slot);
+    return slot;
+  };
+  SetInnerSlotPadding = (v: Vector2D) => { this.padding = v; };
+  SetHorizontalAlignment = (v: number) => { this.horizontalAlignment = v; };
+}
+
+class HorizontalBoxSlot {
+  horizontal?: number;
+  vertical?: number;
+  size?: SlateChildSize;
+  padding?: Margin;
+  SetHorizontalAlignment = (value: number) => { this.horizontal = value; };
+  SetVerticalAlignment = (value: number) => { this.vertical = value; };
+  SetSize = (value: SlateChildSize) => { this.size = value; };
+  SetPadding = (value: Margin) => { this.padding = value; };
+}
+
+class VerticalBoxSlot {
+  horizontal?: number;
+  vertical?: number;
+  size?: SlateChildSize;
+  padding?: Margin;
+  SetHorizontalAlignment = (value: number) => { this.horizontal = value; };
+  SetVerticalAlignment = (value: number) => { this.vertical = value; };
+  SetSize = (value: SlateChildSize) => { this.size = value; };
+  SetPadding = (value: Margin) => { this.padding = value; };
+}
+
+class HorizontalBox extends PanelWidget {
+  FlowDirectionPreference: number = 0;
+  constructor(public outer: any) { super(); }
+  AddChildToHorizontalBox = (child: any) => {
+    this.children.push(child);
+    const slot = new HorizontalBoxSlot();
+    (child as any).Slot = slot;
+    (this as any).Slots = (this as any).Slots || [];
+    (this as any).Slots.push(slot);
+    return slot;
+  };
+}
+
+class VerticalBox extends PanelWidget {
+  constructor(public outer: any) { super(); }
+  AddChildToVerticalBox = (child: any) => {
+    this.children.push(child);
+    const slot = new VerticalBoxSlot();
+    (child as any).Slot = slot;
+    (this as any).Slots = (this as any).Slots || [];
+    (this as any).Slots.push(slot);
+    return slot;
+  };
+}
+
+class MultiLineEditableText extends Widget {
+  text?: any;
+  hint?: any;
+  readOnly = false;
+  enabled = true;
+  Font: SlateFontInfo | undefined;
+  WidgetStyle: any = { ColorAndOpacity: new SlateColor() };
+  OnTextChanged = createEventArray();
+  OnTextCommitted = createEventArray();
+  constructor(public outer: any) {super();}
+  SetText = (v: any) => { this.text = v; };
+  SetHintText = (v: any) => { this.hint = v; };
+  SetIsReadOnly = (v: boolean) => { this.readOnly = v; };
+  SetIsEnabled = (v: boolean) => { this.enabled = v; };
+  SetFont = (font: SlateFontInfo) => { this.Font = font; };
+  GetFont = () => this.Font;
+}
+
+class Key {
+  constructor(public name: string) {}
+}
+
+class Anchors {
+  Minimum: Vector2D;
+  Maximum: Vector2D;
+  constructor(min: Vector2D, max: Vector2D) {
+    this.Minimum = min;
+    this.Maximum = max;
+  }
+}
+
+class CanvasPanelSlot extends PanelSlot {
+  Position: Vector2D = new Vector2D();
+  Offsets: Margin = new Margin();
+  Size: Vector2D = new Vector2D();
+  Alignment: Vector2D = new Vector2D(0.5, 0.5);
+  ZOrder = 0;
+  AutoSize = false;
+  Anchors?: Anchors;
+  padding?: Margin;
+  SetPosition = (v: Vector2D) => { this.Position = v; };
+  SetOffsets = (v: Margin) => { this.Offsets = v; };
+  SetSize = (v: Vector2D) => { this.Size = v; };
+  SetAutoSize = (v: boolean) => { this.AutoSize = v; };
+  SetAlignment = (v: Vector2D) => { this.Alignment = v; };
+  SetAnchors = (a: Anchors) => { this.Anchors = a; };
+  SetZOrder = (v: number) => { this.ZOrder = v; };
+  SetPadding = (v: Margin) => { this.padding = v; };
+}
+
+class CanvasPanel extends PanelWidget {
+  Slots: CanvasPanelSlot[] = [];
+  constructor(public outer: any) { super(); }
+  AddChildToCanvas = (child: any) => {
+    this.children.push(child);
+    const slot = new CanvasPanelSlot();
+    this.Slots.push(slot);
+    (child as any).Slot = slot;
+    return slot;
+  };
+}
+
+class GridSlot extends PanelSlot {
+  Row = 0;
+  Column = 0;
+  RowSpan = 1;
+  ColumnSpan = 1;
+  HorizontalAlignment?: number;
+  VerticalAlignment?: number;
+  padding?: Margin;
+  SetRow = (v: number) => { this.Row = v; };
+  SetColumn = (v: number) => { this.Column = v; };
+  SetRowSpan = (v: number) => { this.RowSpan = v; };
+  SetColumnSpan = (v: number) => { this.ColumnSpan = v; };
+  SetHorizontalAlignment = (v: number) => { console.log("GridSlot SetHorizontalAlignment called with value:", v); this.HorizontalAlignment = v; };
+  SetVerticalAlignment = (v: number) => { console.log("GridSlot SetVerticalAlignment called with value:", v); this.VerticalAlignment = v; };
+  SetPadding = (v: Margin) => { this.padding = v; };
+}
+
+class GridPanel extends PanelWidget {
+  columnFills: number[] = [];
+  rowFills: number[] = [];
+  Slots: GridSlot[] = [];
+  constructor(public outer: any) { super(); }
+  AddChildToGrid = (child: any) => {
+    this.children.push(child);
+    const slot = new GridSlot();
+    this.Slots.push(slot);
+    (child as any).Slot = slot;
+    return slot;
+  };
+  GetChildrenCount = () => this.children.length;
+  GetChildAt = (i: number) => this.children[i];
+  SetColumnFill = (i: number, v: number) => { this.columnFills[i] = v; };
+  SetRowFill = (i: number, v: number) => { this.rowFills[i] = v; };
+}
+
+class OverlaySlot extends PanelSlot {
+  HorizontalAlignment?: number;
+  VerticalAlignment?: number;
+  padding?: Margin;
+  SetHorizontalAlignment = (v: number) => { this.HorizontalAlignment = v; };
+  SetVerticalAlignment = (v: number) => { this.VerticalAlignment = v; };
+  SetPadding = (v: Margin) => { this.padding = v; };
+}
+
+class Overlay extends PanelWidget {
+  constructor(public outer: any) { super(); }
+  AddChildToOverlay = (child: any) => { 
+    this.children.push(child); 
+    const slot = new OverlaySlot(); 
+    (child as any).Slot = slot;
+    (this as any).Slots = (this as any).Slots || [];
+    (this as any).Slots.push(slot);
+    return slot; 
+  };
+}
+
+class UniformGridSlot extends PanelSlot {
+  row = 0;
+  column = 0;
+  HorizontalAlignment?: number;
+  VerticalAlignment?: number;
+  padding?: Margin;
+  SetRow = (v: number) => { this.row = v; };
+  SetColumn = (v: number) => { this.column = v; };
+  SetHorizontalAlignment = (v: number) => { this.HorizontalAlignment = v; };
+  SetVerticalAlignment = (v: number) => { this.VerticalAlignment = v; };
+  SetPadding = (v: Margin) => { this.padding = v; };
+}
+
+class UniformGridPanel extends PanelWidget {
+  MinDesiredSlotWidth = 0;
+  MinDesiredSlotHeight = 0;
+  SlotPadding?: Margin;
+  Slots: UniformGridSlot[] = [];
+  constructor(public outer: any) { super(); }
+  SetMinDesiredSlotWidth = (v: number) => { this.MinDesiredSlotWidth = v; };
+  SetMinDesiredSlotHeight = (v: number) => { this.MinDesiredSlotHeight = v; };
+  SetSlotPadding = (p: Margin) => { this.SlotPadding = p; };
+  AddChildToUniformGrid = (child: any) => { 
+    this.children.push(child); 
+    const s = new UniformGridSlot(); 
+    this.Slots.push(s); 
+    (child as any).Slot = s;
+    return s; 
+  };
+}
+
+class BorderSlot extends PanelSlot {
+  HorizontalAlignment?: number;
+  VerticalAlignment?: number;
+  padding?: Margin;
+  SetHorizontalAlignment = (v: number) => { this.HorizontalAlignment = v; };
+  SetVerticalAlignment = (v: number) => { this.VerticalAlignment = v; };
+  SetPadding = (v: Margin) => { this.padding = v; };
+}
+
+class Border extends PanelWidget {
+  Brush?: any;
+  BrushColor?: LinearColor;
+  ContentColorAndOpacity?: LinearColor;
+  DesiredSizeScale?: any;
+  HorizontalAlignment?: number;
+  VerticalAlignment?: number;
+  Padding?: Margin;
+  constructor(public outer: any) { super(); }
+  SetBrush = (b: any) => { this.Brush = b; };
+  SetBrushColor = (c: any) => { this.BrushColor = c; };
+  SetContentColorAndOpacity = (c: LinearColor) => { this.ContentColorAndOpacity = c; };
+  SetDesiredSizeScale = (v: any) => { this.DesiredSizeScale = v; };
+  SetHorizontalAlignment = (v: number) => { this.HorizontalAlignment = v; };
+  SetVerticalAlignment = (v: number) => { this.VerticalAlignment = v; };
+  SetPadding = (p: Margin) => { this.Padding = p; };
+  AddChild = (child: any) => { this.children.push(child); return new BorderSlot(); };
 }
 
 function createEventArray() {
@@ -228,6 +642,26 @@ const EWidgetPixelSnapping = enumFactory({ SnapToPixel: 0, Disabled: 1 });
 const EButtonClickMethod = enumFactory({ DownAndUp: 0, MouseDown: 1, MouseUp: 2, PreciseClick: 3 });
 const EButtonTouchMethod = enumFactory({ DownAndUp: 0, Down: 1, PreciseTap: 2 });
 const EButtonPressMethod = enumFactory({ DownAndUp: 0, ButtonPress: 1, ButtonRelease: 2 });
+const ESlateCheckBoxType = enumFactory({ CheckBox: 0 });
+const EOrientation = enumFactory({ Orient_Horizontal: 0, Orient_Vertical: 1 });
+const EFlowDirectionPreference = enumFactory({ LeftToRight: 0, RightToLeft: 1 });
+const EStretch = enumFactory({
+  ScaleToFit: 0,
+  ScaleToFill: 1,
+  Fill: 2,
+  None: 3,
+  UserSpecifiedWithClipping: 4,
+});
+const ESelectInfo = enumFactory({ OnKeyPress: 0 });
+const ETextCommit = enumFactory({ Default: 0, OnUserMovedFocus: 1 });
+const ETextTransformPolicy = enumFactory({ None: 0, ToUpper: 1, ToLower: 2 });
+const EWidgetClipping = enumFactory({
+  Inherit: 0,
+  ClipToBounds: 1,
+  ClipToBoundsWithoutIntersecting: 2,
+  ClipToBoundsAlways: 3,
+  OnDemand: 4,
+});
 
 const UEStub = {
   Vector2D,
@@ -243,6 +677,35 @@ const UEStub = {
   HorizontalBoxSlot,
   VerticalBoxSlot,
   TextBlock,
+  ButtonSlot,
+  EditableText,
+  CheckBox,
+  SizeBox,
+  SizeBoxSlot,
+  Slider,
+  Image,
+  ScaleBox,
+  ScaleBoxSlot,
+  ProgressBar,
+  ComboBoxString,
+  WrapBox,
+  WrapBoxSlot,
+  HorizontalBox,
+  VerticalBox,
+  Anchors,
+  CanvasPanel,
+  CanvasPanelSlot,
+  GridPanel,
+  GridSlot,
+  Overlay,
+  OverlaySlot,
+  UniformGridPanel,
+  UniformGridSlot,
+  Border,
+  BorderSlot,
+  Widget,
+  MultiLineEditableText,
+  Key,
   EHorizontalAlignment,
   EVerticalAlignment,
   ESlateSizeRule,
@@ -256,6 +719,14 @@ const UEStub = {
   EButtonClickMethod,
   EButtonTouchMethod,
   EButtonPressMethod,
+  ESlateCheckBoxType,
+  EOrientation,
+  EFlowDirectionPreference,
+  EStretch,
+  ESelectInfo,
+  ETextCommit,
+  ETextTransformPolicy,
+  EWidgetClipping,
   PanelWidget,
   PanelSlot,
   Button,
@@ -272,10 +743,17 @@ const UEStub = {
     FindFontFamily: () => ({ family: 'stub-font' }),
     LoadBrushImageObject: () => {},
     SynchronizeWidgetProperties: () => {},
+    SynchronizeSlotProperties: () => {},
+    GetWidgetScreenPixelSize: (_: any) => new Vector2D(10, 10),
+    GetCurrentWorld: () => undefined,
   },
   KismetRenderingLibrary: {
     ImportFileAsTexture2D: (_: any, path: string) => (path ? { texturePath: path } : undefined),
   },
+  GameplayStatics: {
+    GetPlayerController: () => undefined,
+  },
+  EventReply,
 };
 
 const puertsStub = {

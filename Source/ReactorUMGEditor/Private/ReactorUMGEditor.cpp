@@ -77,7 +77,7 @@ void GenerateUEDeclaration(const FName& SearchPath, bool GenFull)
 		UClass* Class = Cast<UClass>(SortedClasses[i]);
 		if (Class && Class->ImplementsInterface(UCodeGenerator::StaticClass()))
 		{
-			// ICodeGenerator::Execute_Gen(Class->GetDefaultObject(), TypesHomeDir);
+			ICodeGenerator::Execute_Gen(Class->GetDefaultObject(), TypesHomeDir);
 		}
 	}
 }

@@ -73,6 +73,12 @@ export class TextConverter extends JSXConverter {
             letterSpacing: '1px',
             lineHeight: '1.45',
             color: 'white'
+        },
+        'pre': {
+            whiteSpace: 'pre',
+            fontFamily: 'monospace',
+            lineHeight: '1.4',
+            color: 'white'
         }
     };
     private readonly loweredTypeName: string;
@@ -263,8 +269,11 @@ export class TextConverter extends JSXConverter {
             return;
         }
 
-        textBlock.AutoWrapText = true;
         const styles = this.normalizeStyles(props);
+        const whiteSpace = (styles?.whiteSpace ?? '').toString().toLowerCase();
+        const shouldAutoWrap = this.loweredTypeName !== 'pre' && whiteSpace !== 'pre' && whiteSpace !== 'nowrap';
+        textBlock.AutoWrapText = shouldAutoWrap;
+
         if (hasFontStyles(styles)) {
             if (!textBlock.Font) {
                 const fontStyles = new UE.SlateFontInfo();

@@ -69,7 +69,7 @@ export class InputJSXConverter extends JSXConverter {
     private setupCheckbox(widget: UE.CheckBox, props: any, isUpdate: boolean) {
         const { checked, onChange } = props;
         
-        if (checked) widget.SetIsChecked(true);
+        widget.SetIsChecked(checked == true);
         if (typeof onChange === 'function') {
             if (isUpdate) {
                 this.updateCheckboxChange(widget, onChange);
