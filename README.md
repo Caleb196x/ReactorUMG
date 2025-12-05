@@ -15,7 +15,7 @@ The plugin is built on **PuertTS** scripting and pairs with AI assistance so you
 
 > **Keywords:** Unreal Engine, UE5, UMG, UI, Slate, React, TypeScript, Plugin, Hot Reload, Live Preview, Puerts
 
-⚠️ **Alpha stage**: APIs and structure may still change; a stable release will follow once things settle.
+⚠️ **Alpha stage**: The API and structure may still change; an official version will be released once stabilized. Given that in-game UIs typically have high visual and interactive complexity, the current version of the plugin still has limitations in adaptation completeness and cannot fully meet the presentation requirements of production-level game UIs. **Therefore, at this stage, we strongly recommend prioritizing its application to UI development for editor extension tools, to improve tool development efficiency.***
 
 ⚠️ **Before you start**: Please read the FAQ first to avoid known pitfalls.
 
@@ -65,6 +65,13 @@ To solve this, we built the ReactorUMG plugin. **ReactorUMG** lets you use **nat
 ---
 
 <h2 id="2e52a2da">Install and Quick Start</h2>
+
+**Minimal Setup**
+
++ Download the plugin and place it in the project's Plugins directory;
++ Run the initialization script setup_win.bat;
++ Launch the project, create a ReactorUMG->EditorUtilityWidget asset, and write UI scripts under <ProjectDir>/TypeScript/<ProjectName>/Editor/<AssetName>.
+
 See the docs: https://caleb196x.github.io/ReactorUMGOnlineDoc/quickstart/
 
 ---
@@ -116,6 +123,7 @@ This project uses the **MIT License**. See **LICENSE** for details.
 
 + **Docs Home**: https://caleb196x.github.io/ReactorUMGOnlineDoc/
 + **Sample Project**: https://github.com/Caleb196x/ReactorUMGDemo
++ **ReactorUMG NPM Package**: https://github.com/Caleb196x/ReactorUMG-TS
 + **Release Downloads (Releases)**: __
 + **Issues and Suggestions (Issues)**: __
 + **Discussion Board (Discussions)**: __

@@ -15,7 +15,7 @@ ReactorUMG是一款可以帮助您在虚幻引擎（Unreal Engine）中使用 **
 
 > **关键词**：Unreal Engine、UE5、UMG、UI、Slate、React、TypeScript、插件、热重载、实时预览、Puerts
 
-⚠️ **当前为开发测试阶段（Alpha）**：API 与结构仍可能变化；稳定后将发布正式版本。
+⚠️ **当前为开发测试阶段（Alpha）**：API 与结构仍可能变化；稳定后将发布正式版本。鉴于游戏内UI通常具有较高的视觉和交互复杂度，当前版本的插件在适配完整度方面尚难以完全满足产品级游戏UI的表现需求。**因此，现阶段我们强烈建议优先将其应用于编辑器扩展工具的UI开发中，实现工具开发提效。**
 
 ⚠️ **使用前注意**：**使用开发前请务必查看FAQ，避免您重复踩坑。**
 
@@ -64,7 +64,13 @@ ReactorUMG是一款可以帮助您在虚幻引擎（Unreal Engine）中使用 **
 ---
 
 <h2 id="2e52a2da">安装与快速上手</h2>
-参考文档：https://caleb196x.github.io/ReactorUMGOnlineDoc/quickstart/
+
+**极简版**
++ 下载插件并放置到项目`Plugins`目录；
++ 运行初始化脚本`Plugins/ReactorUMG/Tools/setup_win.bat`；
++ 启动项目，创建`ReactorUMG->EditorUtilityWidget`资产，到`<ProjectDir>/TypeScript/<ProjectName>/Editor/<AssetName>`下编写UI脚本。
+
+详细信息参考文档：https://caleb196x.github.io/ReactorUMGOnlineDoc/quickstart/
 
 ---
 
@@ -115,6 +121,7 @@ A: UI 复杂度与状态变更频率会影响性能。推荐进行组件颗粒�
 
 + **文档主页**：https://caleb196x.github.io/ReactorUMGOnlineDoc/
 + **示例工程**：https://github.com/Caleb196x/ReactorUMGDemo
++ + **TypeScript部分实现**：https://github.com/Caleb196x/ReactorUMG-TS
 + **发行版下载（Releases）**：__
 + **问题与建议（Issues）**：__
 + **讨论区（Discussions）**：__
