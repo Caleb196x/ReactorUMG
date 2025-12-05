@@ -1,7 +1,7 @@
 {
-  "name": "reactorumg",
-  "private": true,
-  "version": "0.0.1",
+  "name": "reactorumg-sample",
+  "private": false,
+  "version": "1.0.0",
   "type": "commonjs",
   "scripts": {
     "build": "yarn install && npx tsx build.ts",
@@ -15,6 +15,7 @@
     "e": "^0.2.33",
     "react": "^18.0.0",
     "react-reconciler": "^0.28.0",
+    "reactorumg": "1.0.5",
     "ts-loader": "^9.4.2"
   },
   "devDependencies": {

@@ -19,7 +19,7 @@ void TemplateScriptCreator::GenerateLaunchTsxFile(const FString& ScriptHome)
 	GeneratedTemplateOutput << "/** !!!Warning: Auto-generated code, please do not make any changes */ \n";
 	GeneratedTemplateOutput << "import * as UE from \"ue\";\n";
 	GeneratedTemplateOutput << "import { $Nullable, argv } from \"puerts\";\n";
-	GeneratedTemplateOutput << "import {ReactorUMG, Root} from \"reactorUMG\";\n";
+	GeneratedTemplateOutput << "import {ReactorUMG, Root} from \"reactorumg\";\n";
 	GeneratedTemplateOutput << "import * as React from \"react\";\n";
 
 	const FString ImportWidget = FString::Printf(TEXT("import { %s } from \"./%s\"\n"), *WidgetName, *WidgetName);
