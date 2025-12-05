@@ -4,7 +4,8 @@
 ![Coverage](https://img.shields.io/badge/coverage-90%25-orange)
 [![Unreal Engine](https://img.shields.io/badge/Unreal%20Engine-5.x-purple)](https://www.unrealengine.com/)
 ![React](https://img.shields.io/badge/react-%5E18.0.0-61DAFB?logo=react&logoColor=white)
-
+[![Docs](https://img.shields.io/badge/docs-available-blue?style=flat&logo=readthedocs&logoColor=white)](https://caleb196x.github.io/ReactorUMGOnlineDoc/)
+[![npm version](https://img.shields.io/npm/v/ReactorUMG)](https://www.npmjs.com/package/ReactorUMG)
 
 <img src="./docs/imgs/Cover.png" width="600" alt="Cover" />
 
