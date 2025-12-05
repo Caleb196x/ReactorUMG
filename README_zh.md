@@ -8,7 +8,7 @@
 
 ![](./docs/imgs/Cover.png)
 
-ReactorUMG可以帮助您在虚幻引擎（Unreal Engine）中使用 **React** 开发 **UMG** 游戏UI和编辑器UI的辅助插件。  
+ReactorUMG是一款可以帮助您在虚幻引擎（Unreal Engine）中使用 **React** 开发 **UMG** 游戏UI和编辑器UI的辅助插件。
 插件基于 **PuertTS** 脚本能力构建，结合 AI 辅助，让您能以Web前端的开发方式高效完成游戏UI和编辑器UI的研发与迭代。**特别适用于使用AI快速开发出编辑器下的各类UI工具。**
 
 > **关键词**：Unreal Engine、UE5、UMG、UI、Slate、React、TypeScript、插件、热重载、实时预览、Puerts
