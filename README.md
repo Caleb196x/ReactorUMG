@@ -6,7 +6,7 @@
 ![React](https://img.shields.io/badge/react-%5E18.0.0-61DAFB?logo=react&logoColor=white)
 
 
-![](./docs/imgs/Cover2.png)
+![](./docs/imgs/Cover.png) {width=600}
 
 ReactorUMG helps you build **UMG** game UI and editor UI in Unreal Engine using **React**.
 The plugin is built on **PuertTS** scripting and pairs with AI assistance so you can develop and iterate UI efficiently with a web-style workflow. **It is especially suited to using AI to quickly build a variety of in-editor UI tools.**
