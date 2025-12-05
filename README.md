@@ -68,9 +68,9 @@ To solve this, we built the ReactorUMG plugin. **ReactorUMG** lets you use **nat
 
 **Minimal Setup**
 
-+ Download the plugin and place it in the project's Plugins directory;
-+ Run the initialization script setup_win.bat;
-+ Launch the project, create a ReactorUMG->EditorUtilityWidget asset, and write UI scripts under <ProjectDir>/TypeScript/<ProjectName>/Editor/<AssetName>.
++ Download the plugin and place it in the project's `Plugins` directory;
++ Run the initialization script `Plugins/ReactorUMG/Tools/setup_win.bat`;
++ Launch the project, create a `ReactorUMG->EditorUtilityWidget` asset, and write UI scripts under `<ProjectDir>/TypeScript/<ProjectName>/Editor/<AssetName>`.
 
 See the docs: https://caleb196x.github.io/ReactorUMGOnlineDoc/quickstart/
 
