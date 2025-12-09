@@ -109,22 +109,30 @@ void UReactorUMGWidgetBlueprint::SetupMonitorForTsScripts()
 	GEditor->GetEditorSubsystem<UAssetEditorSubsystem>()->OnAssetClosedInEditor().AddLambda([this](
 		UObject* Asset, IAssetEditorInstance* AssetEditorInstance)
 	{
-		UE_LOG(LogReactorUMG, Log, TEXT("Stop TS Script Monitor -- AssetName: %s, AssetType: %s"), *Asset->GetName(), *Asset->GetClass()->GetName());
-		if (ReactorUMGCommonBP)
+		if (Asset && Asset == this)
 		{
-			ReactorUMGCommonBP->StopTsScriptsMonitor();
+			UE_LOG(LogReactorUMG, Log, TEXT("Stop TS Script Monitor -- AssetName: %s, AssetType: %s"), *Asset->GetName(), *Asset->GetClass()->GetName());
+			if (ReactorUMGCommonBP)
+			{
+				ReactorUMGCommonBP->StopTsScriptsMonitor();
+			}
 		}
 	});
+	
 #elif ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION < 4
 	GEditor->GetEditorSubsystem<UAssetEditorSubsystem>()->OnAssetEditorRequestClose().AddLambda([this](
 		UObject* Asset, EAssetEditorCloseReason Reason)
 	{
-	UE_LOG(LogReactorUMG, Log, TEXT("Stop TS Script Monitor -- AssetName: %s, AssetType: %s"), *Asset->GetName(), *Asset->GetClass()->GetName());
-	if (ReactorUMGCommonBP)
-	{
-		ReactorUMGCommonBP->StopTsScriptsMonitor();
-	}
+		if (Asset && Asset == this)
+		{
+			UE_LOG(LogReactorUMG, Log, TEXT("Stop TS Script Monitor -- AssetName: %s, AssetType: %s"), *Asset->GetName(), *Asset->GetClass()->GetName());
+			if (ReactorUMGCommonBP)
+			{
+				ReactorUMGCommonBP->StopTsScriptsMonitor();
+			}
+		}
 	});
 #endif
+	
 }
 

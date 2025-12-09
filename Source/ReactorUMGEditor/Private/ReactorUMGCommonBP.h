@@ -36,7 +36,7 @@ private:
 	FDirectoryMonitorCallback OnChanged;
 
 	FString CurrentMonitorDirectory;
-	
+
 	bool bIsWatching;
 };
 
