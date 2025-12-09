@@ -29,7 +29,11 @@ UReactorUMGUtilityWidgetBlueprint::UReactorUMGUtilityWidgetBlueprint(const FObje
 	ReactorUMGCommonBP->BuildAllNeedPaths(GetName(), GetPathName(), TEXT("Editor"));
 
 	RegisterBlueprintDeleteHandle();
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 4
 	FEditorDelegates::OnPreForceDeleteObjects.AddUObject(this, &UReactorUMGUtilityWidgetBlueprint::ForceDeleteAssets);
+#elif ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION < 4
+	FEditorDelegates::OnAssetsPreDelete.AddUObject(this, &UReactorUMGUtilityWidgetBlueprint::ForceDeleteAssets);
+#endif
 }
 
 void UReactorUMGUtilityWidgetBlueprint::ForceDeleteAssets(const TArray<UObject*>& InAssetsToDelete)
@@ -103,9 +107,9 @@ void UReactorUMGUtilityWidgetBlueprint::SetupMonitorForTsScripts()
 		}
 	});
 
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 4
 	GEditor->GetEditorSubsystem<UAssetEditorSubsystem>()->OnAssetClosedInEditor().AddLambda([this](
-		UObject* Asset, IAssetEditorInstance* AssetEditorInstance
-		)
+		UObject* Asset, IAssetEditorInstance* AssetEditorInstance)
 	{
 		UE_LOG(LogReactorUMG, Log, TEXT("Stop TS Script Monitor -- AssetName: %s, AssetType: %s"), *Asset->GetName(), *Asset->GetClass()->GetName());
 		if (ReactorUMGCommonBP)
@@ -113,4 +117,16 @@ void UReactorUMGUtilityWidgetBlueprint::SetupMonitorForTsScripts()
 			ReactorUMGCommonBP->StopTsScriptsMonitor();
 		}
 	});
+#elif ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION < 4
+	GEditor->GetEditorSubsystem<UAssetEditorSubsystem>()->OnAssetEditorRequestClose().AddLambda([this](
+		UObject* Asset, EAssetEditorCloseReason Reason)
+	{
+	UE_LOG(LogReactorUMG, Log, TEXT("Stop TS Script Monitor -- AssetName: %s, AssetType: %s"), *Asset->GetName(), *Asset->GetClass()->GetName());
+	if (ReactorUMGCommonBP)
+	{
+		ReactorUMGCommonBP->StopTsScriptsMonitor();
+	}
+	});
+#endif
+		
 }
