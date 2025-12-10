@@ -268,7 +268,7 @@ const char *Json::parseString(Json *item, const char *str) {
 					break;
 				case 'u': {
 					/* transcode utf16 to utf8. */
-					sscanf(ptr + 1, "%4x", &uc);
+					sscanf_s(ptr + 1, "%4x", &uc);
 					ptr += 4; /* get the unicode char. */
 
 					if ((uc >= 0xDC00 && uc <= 0xDFFF) || uc == 0) {
@@ -280,7 +280,7 @@ const char *Json::parseString(Json *item, const char *str) {
 						if (ptr[1] != '\\' || ptr[2] != 'u') {
 							break; /* missing second-half of surrogate.	*/
 						}
-						sscanf(ptr + 3, "%4x", &uc2);
+						sscanf_s(ptr + 3, "%4x", &uc2);
 						ptr += 6;
 						if (uc2 < 0xDC00 || uc2 > 0xDFFF) {
 							break; /* invalid second-half of surrogate.	*/

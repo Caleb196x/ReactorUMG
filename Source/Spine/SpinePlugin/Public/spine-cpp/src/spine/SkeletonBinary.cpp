@@ -415,9 +415,9 @@ SkeletonData *SkeletonBinary::readSkeletonDataFile(const String &path) {
 void SkeletonBinary::setError(const char *value1, const char *value2) {
 	char message[256];
 	int length;
-	strcpy(message, value1);
+	strcpy_s(message, value1);
 	length = (int) strlen(value1);
-	if (value2) strncat(message + length, value2, 255 - length);
+	if (value2) strncat_s(message + length, 255 - length, value2, 255);
 	_error = String(message);
 }
 

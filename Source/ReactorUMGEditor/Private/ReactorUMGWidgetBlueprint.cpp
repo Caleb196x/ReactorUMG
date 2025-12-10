@@ -28,7 +28,7 @@ UReactorUMGWidgetBlueprint::UReactorUMGWidgetBlueprint(const FObjectInitializer&
 	RegisterBlueprintDeleteHandle();
 
 #if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 4
-	FEditorDelegates::OnPreForceDeleteObjects.AddUObject(this, &UReactorUMGUtilityWidgetBlueprint::ForceDeleteAssets);
+	FEditorDelegates::OnPreForceDeleteObjects.AddUObject(this, &UReactorUMGWidgetBlueprint::ForceDeleteAssets);
 #elif ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION < 4
 	FEditorDelegates::OnAssetsPreDelete.AddUObject(this, &UReactorUMGWidgetBlueprint::ForceDeleteAssets);
 #endif

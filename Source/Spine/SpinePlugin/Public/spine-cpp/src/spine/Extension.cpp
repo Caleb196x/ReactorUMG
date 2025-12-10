@@ -106,7 +106,8 @@ void DefaultSpineExtension::_free(void *mem, const char *file, int line) {
 char *DefaultSpineExtension::_readFile(const String &path, int *length) {
 #ifndef __EMSCRIPTEN__
 	char *data;
-	FILE *file = fopen(path.buffer(), "rb");
+	FILE *file;
+	fopen_s(&file, path.buffer(), "rb");
 	if (!file) return 0;
 
 	fseek(file, 0, SEEK_END);
