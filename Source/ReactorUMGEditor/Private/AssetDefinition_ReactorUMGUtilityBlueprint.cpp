@@ -1,5 +1,8 @@
 #include "AssetDefinition_ReactorUMGUtilityBlueprint.h"
 // Core includes
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION < 2
+#include "EditorUtilitySubsystem.h"
+#endif
 #include "ReactorUMGUtilityWidgetBlueprint.h"
 #include "Misc/MessageDialog.h"
 #include "WidgetBlueprintEditor.h"
@@ -58,3 +61,41 @@ uint32 AssetDefinition_ReactorUMGUtilityBlueprintAssetTypeActions::GetCategories
 {
 	return Categories;
 }
+
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION < 2
+void AssetDefinition_ReactorUMGUtilityBlueprintAssetTypeActions::GetActions(const TArray<UObject*>& InObjects, FToolMenuSection& Section)
+{
+	auto Blueprints = GetTypedWeakObjectPtrs<UWidgetBlueprint>(InObjects);
+
+	Section.AddMenuEntry(
+		"EditorUtilityWidget_Edit",
+		NSLOCTEXT("ReactorUMGUtilityBlueprint", "EditorUtilityWidget_Edit", "Run Editor Utility Widget"),
+		NSLOCTEXT("ReactorUMGUtilityBlueprint", "EditorUtilityWidget_EditTooltip", "Opens the tab built by this Editor Utility Widget Blueprint."),
+		FSlateIcon(),
+		FUIAction(
+			FExecuteAction::CreateSP(this, &AssetDefinition_ReactorUMGUtilityBlueprintAssetTypeActions::ExecuteRun, Blueprints),
+			FCanExecuteAction()
+		)
+	);
+
+}
+
+void AssetDefinition_ReactorUMGUtilityBlueprintAssetTypeActions::ExecuteRun(FWeakBlueprintPointerArray InObjects)
+{
+	for (auto ObjIt = InObjects.CreateConstIterator(); ObjIt; ++ObjIt)
+	{
+		if (UWidgetBlueprint* Blueprint = Cast<UWidgetBlueprint>(*ObjIt))
+		{
+			if (Blueprint->GeneratedClass->IsChildOf(UEditorUtilityWidget::StaticClass()))
+			{
+				UEditorUtilityWidgetBlueprint* EditorWidget = Cast<UEditorUtilityWidgetBlueprint>(Blueprint);
+				if (EditorWidget)
+				{
+					UEditorUtilitySubsystem* EditorUtilitySubsystem = GEditor->GetEditorSubsystem<UEditorUtilitySubsystem>();
+					EditorUtilitySubsystem->SpawnAndRegisterTab(EditorWidget);
+				}
+			}
+		}
+	}
+}
+#endif

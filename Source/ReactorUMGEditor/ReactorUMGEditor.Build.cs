@@ -5,7 +5,7 @@ public class ReactorUMGEditor : ModuleRules
     public ReactorUMGEditor(ReadOnlyTargetRules Target) : base(Target)
     {
         PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
-
+        
         PublicDependencyModuleNames.AddRange(
             new string[]
             {
@@ -32,7 +32,9 @@ public class ReactorUMGEditor : ModuleRules
                 "Projects",
                 "UMG",
                 "UMGEditor",
-                "DirectoryWatcher", "Blutility"
+                "DirectoryWatcher", 
+                "Blutility",
+                "ToolMenus"
             }
         );
     }

@@ -8,6 +8,7 @@
 #include "LogReactorUMG.h"
 #include "ReactorUtils.h"
 #include "Blueprint/WidgetTree.h"
+#include "Misc/ScopedSlowTask.h"
 
 void FDirectoryMonitor::Watch(const FString& InDirectory)
 {

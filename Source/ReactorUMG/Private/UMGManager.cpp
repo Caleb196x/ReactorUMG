@@ -32,12 +32,18 @@ UUserWidget* UUMGManager::CreateWidget(UWidgetTree* Outer, UClass* Class)
 
 void UUMGManager::SynchronizeWidgetProperties(UWidget* Widget)
 {
-    Widget->SynchronizeProperties();
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION < 2
+    if (Widget)
+    {
+        Widget->SynchronizeProperties();
+    }
+#endif
 }
 
 void UUMGManager::SynchronizeSlotProperties(UPanelSlot* Slot)
 {
-    Slot->SynchronizeProperties();
+    if (Slot)
+        Slot->SynchronizeProperties();
 }
 
 USpineAtlasAsset* UUMGManager::LoadSpineAtlas(UObject* Context, const FString& AtlasPath, const FString& DirName)

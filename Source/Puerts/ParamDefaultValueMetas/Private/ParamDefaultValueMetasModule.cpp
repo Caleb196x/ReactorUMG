@@ -12,9 +12,12 @@
 #if ENGINE_MAJOR_VERSION < 5 || ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION < 2
 #include "IScriptGeneratorPluginInterface.h"
 #endif
-#include "Runtime/Launch/Resources/Version.h"
 
 #define LOCTEXT_NAMESPACE "FParamDefaultValueMetasModule"
+
+#if ENGINE_MAJOR_VERSION < 5 || ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION < 2
+#include "JsEnv/Public/PropertyMacros.h"
+#endif
 
 class FParamDefaultValueMetasModule
 #if ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION >= 2
