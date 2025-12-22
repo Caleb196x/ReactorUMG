@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
 	"Version": 1,
-	"VersionName": "1.0",
+	"VersionName": "1.0.0",
 	"FriendlyName": "ReactorUMG",
 	"Description": "ReactorUMG is a helper plugin for Unreal Engine that lets you build UMG game UI and editor UI using React framework.",
 	"Category": "UI",
