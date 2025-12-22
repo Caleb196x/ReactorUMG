@@ -14,8 +14,6 @@ namespace UnrealBuildTool.Rules
     {
         public ParamDefaultValueMetas(ReadOnlyTargetRules Target) : base(Target)
         {
-            bEnforceIWYU = false;
-
             PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 
             PublicIncludePaths.AddRange(
@@ -27,7 +25,7 @@ namespace UnrealBuildTool.Rules
 
             PrivateIncludePaths.AddRange(
                 new string[] {
-                    "JsEnv/Public",
+                    "Puerts/JsEnv/Public",
                 }
                 );
 

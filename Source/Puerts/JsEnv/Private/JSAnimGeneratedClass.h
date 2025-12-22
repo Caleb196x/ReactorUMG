@@ -38,6 +38,11 @@ public:
 
     static void StaticConstructor(const FObjectInitializer& ObjectInitializer);
 
+#if WITH_EDITOR
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 6
+    virtual void HandleReinitializeObjectAfterCompile(UObject* Object) const override;
+#endif
+#endif
 public:
     v8::UniquePersistent<v8::Function> Constructor;
 

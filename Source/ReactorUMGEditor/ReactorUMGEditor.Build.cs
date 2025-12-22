@@ -24,6 +24,7 @@ public class ReactorUMGEditor : ModuleRules
                 "SlateCore",
                 "JsEnv",
                 "AssetRegistry",
+                "BlueprintGraph",
                 "KismetCompiler",
                 "Kismet",
                 "DeclarationGenerator",

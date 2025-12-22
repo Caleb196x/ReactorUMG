@@ -278,6 +278,9 @@ void UJSGeneratedClass::Restore(UClass* Class)
 #if ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION > 2
     UField** PP = nullptr;
     UField* ChildrenPtr = Class->Children.Get();
+#if ENGINE_MINOR_VERSION >= 7
+    UField* NextPtr = ChildrenPtr->Next.Get();
+#endif
     PP = &ChildrenPtr;
 #else
     auto PP = &Class->Children;
@@ -320,7 +323,12 @@ void UJSGeneratedClass::Restore(UClass* Class)
         }
         else
         {
+#if ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION >= 7
+            NextPtr = (*PP)->Next.Get();
+            PP = &NextPtr;    // UE5.7
+#else
             PP = &(*PP)->Next;
+#endif
         }
     }
 #if ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION > 2
@@ -340,7 +348,13 @@ void UJSGeneratedClass::Restore(UClass* Class)
                 Class->AddFunctionToFunctionMap(Function, Function->GetFName());
             }
         }
+        
+#if ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION >= 7
+        NextPtr = (*PP)->Next.Get();
+        PP = &NextPtr; // UE5.7
+#else
         PP = &(*PP)->Next;
+#endif
     }
     Class->ClearFunctionMapsCaches();
     for (TObjectIterator<UClass> It; It; ++It)

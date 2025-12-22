@@ -17,6 +17,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using EpicGames.Core;
+using System.Diagnostics;
 
 namespace CSharpParamDefaultValueMetas
 {
@@ -26,6 +27,7 @@ namespace CSharpParamDefaultValueMetas
         [UhtExporter(Name = "Puerts", Description = "Puerts Default Values Collector", Options = UhtExporterOptions.Default, ModuleName = "JsEnv")]
         private static void UnLuaDefaultParamCollectorUbtPluginExporter(IUhtExportFactory factory)
         {
+            Debug.WriteLine("============== [UnLuaDefaultParamCollectorUbtPluginExporter] ==========================");
             var paramDefaultValueMetas = new CSharpParamDefaultValueMetas(factory);
             
             paramDefaultValueMetas.Generate();

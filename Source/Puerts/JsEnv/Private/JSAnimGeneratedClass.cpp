@@ -7,7 +7,7 @@
  */
 
 #include "JSAnimGeneratedClass.h"
-
+#include "Runtime/Launch/Resources/Version.h"
 #include "JSGeneratedFunction.h"
 
 void UJSAnimGeneratedClass::StaticConstructor(const FObjectInitializer& ObjectInitializer)
@@ -50,3 +50,10 @@ void UJSAnimGeneratedClass::Release()
     Constructor.Reset();
     Prototype.Reset();
 }
+#if WITH_EDITOR
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 6
+void UJSAnimGeneratedClass::HandleReinitializeObjectAfterCompile(UObject* Object) const
+{
+}
+#endif
+#endif

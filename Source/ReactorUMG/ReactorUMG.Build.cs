@@ -48,7 +48,6 @@ public class ReactorUMG : ModuleRules
 				"HTTP",
 				"Json",
 				"JsonUtilities",
-				// "JsonSerialization",
 				"ProceduralMeshComponent",
 				"Puerts",
 				"Projects"

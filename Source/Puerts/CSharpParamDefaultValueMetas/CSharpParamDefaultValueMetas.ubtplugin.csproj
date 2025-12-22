@@ -9,7 +9,8 @@
     <TargetFramework Condition="$(EngineVersionFileContent.Contains('++UE5+Release-5.5'))">net8.0</TargetFramework>
     <TargetFramework Condition="!$(EngineVersionFileContent.Contains('++UE5+Release-5.5'))">net6.0</TargetFramework-->
     <TargetFramework Condition="Exists('$(EngineDir)\Binaries\ThirdParty\DotNet\8.0.300')">net8.0</TargetFramework>
-    <TargetFramework Condition="!Exists('$(EngineDir)\Binaries\ThirdParty\DotNet\8.0.300')">net6.0</TargetFramework>
+    <TargetFramework Condition="Exists('$(EngineDir)\Binaries\ThirdParty\DotNet\8.0.412')">net8.0</TargetFramework>
+    <TargetFramework Condition="!Exists('$(EngineDir)\Binaries\ThirdParty\DotNet\8.0.300') and !Exists('$(EngineDir)\Binaries\ThirdParty\DotNet\8.0.412')">net6.0</TargetFramework>
     
     <Configuration Condition=" '$(Configuration)' == '' ">Development</Configuration>
     <OutputType>Library</OutputType>
@@ -24,7 +25,7 @@
     <DebugType>pdbonly</DebugType>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  <PropertyGroup Condition=" $(EngineDir.Contains('UE_5.5')) ">
+  <PropertyGroup Condition=" $(EngineDir.Contains('UE_5.5')) or $(EngineDir.Contains('UE_5.6')) or $(EngineDir.Contains('UE_5.7')) ">
     <DefineConstants>$(DefineConstants);UE_5_5_OR_LATER</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Development|AnyCPU' ">

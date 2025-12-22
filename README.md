@@ -51,7 +51,7 @@ To solve this, we built the ReactorUMG plugin. **ReactorUMG** lets you use **nat
 + **AI-assisted development**: Use AI Coding to quickly build editor tool panels, runtime UI, and reusable component libraries.
 + **Live preview**: Hot-reload validation and in-editor live preview to verify layout and interaction quickly.
 + **Comprehensive examples**: Samples and templates from beginner to advanced.
-+ **UI animation**: Import Spine and Rive UI animations.
++ **UI animation**: Import Spine animations.
 
 ---
 
@@ -82,11 +82,11 @@ See the docs: https://caleb196x.github.io/ReactorUMGOnlineDoc/quickstart/
 
 <h2 id="faq">FAQ</h2>
 
-**Q: How does this relate to native UMG/Slate?**
-A: ReactorUMG targets teams who build UI with React and complements UMG/Slate; it still relies on UE for UI rendering and the scripting bridge.
+**Q: **
 
-**Q: How is performance?**
-A: UI complexity and state-change frequency affect performance. Control component granularity, lift state, reduce unnecessary re-renders, and disable debug overhead when needed.
+
+**Q: **
+
 
 ---
 
@@ -95,7 +95,8 @@ A: UI complexity and state-change frequency affect performance. Control componen
 - [x] Support basic native React components and basic CSS styles
 - [ ] Design a ReactorUMG-centered component library to support complex game UI, improving runtime efficiency and stability
 - [ ] Support Tailwind CSS
-...
+- [ ] Support UI animation
+- [ ] ...
 
 Want something not listed? Submit a request in Issues.
 
@@ -124,9 +125,11 @@ This project uses the **MIT License**. See **LICENSE** for details.
 + **Docs Home**: https://caleb196x.github.io/ReactorUMGOnlineDoc/
 + **Sample Project**: https://github.com/Caleb196x/ReactorUMGDemo
 + **ReactorUMG NPM Package**: https://github.com/Caleb196x/ReactorUMG-TS
-+ **Release Downloads (Releases)**: __
-+ **Issues and Suggestions (Issues)**: __
-+ **Discussion Board (Discussions)**: __
++ **Release Downloads (Releases)**: https://github.com/Caleb196x/ReactorUMG/releases
++ **Issues and Suggestions (Issues)**: https://github.com/Caleb196x/ReactorUMG/issues
++ **Discussion Board (Discussions)**: 
+  + Discord: https://discord.gg/E9672n9me7
+  + QQ: 
 
 ---
 

@@ -1,10 +1,11 @@
 @echo off
 setlocal
 
-set "ENGINE_VERSION=%~1"
+set "PACKAGE_VERSION=%~1"
+set "ENGINE_VERSION=%~2"
 if "%ENGINE_VERSION%"=="" (
-    echo Usage: %~nx0 ^<EngineVersion^> [EngineRootOrRunUAT]
-    echo Example: %~nx0 5.5 "C:\Epic\Software"
+    echo Usage: %~nx0 ^<PluginVersion^> ^<EngineVersion^> [EngineRootOrRunUAT]
+    echo Example: %~nx0 v1.0.0-alpha 5.5 "C:\Epic\Software"
     exit /b 1
 )
 
@@ -22,7 +23,7 @@ if /I "%ENGINE_VERSION:~0,3%"=="UE_" set "ENGINE_DIR_NAME=%ENGINE_VERSION%"
 
 set "UE_ENGINE_ROOT=C:\Epic\Software"
 set "RUNUAT="
-set "ENGINE_ROOT_ARG=%~2"
+set "ENGINE_ROOT_ARG=%~3"
 if not "%ENGINE_ROOT_ARG%"=="" (
     if /I "%~x2"==".bat" if exist "%ENGINE_ROOT_ARG%" set "RUNUAT=%ENGINE_ROOT_ARG%"
     if exist "%ENGINE_ROOT_ARG%\Engine\Build\BatchFiles\RunUAT.bat" set "RUNUAT=%ENGINE_ROOT_ARG%\Engine\Build\BatchFiles\RunUAT.bat"
@@ -41,12 +42,12 @@ if not exist "%RUNUAT%" (
     exit /b 1
 )
 
-set "PACKAGE_ROOT=E:\UnrealProjects\Plugin_Build\%ENGINE_VERSION%"
+set "PACKAGE_ROOT=E:\UnrealProjects\Plugin_Build\%PACKAGE_VERSION%\%ENGINE_VERSION%"
 set "PACKAGE_DIR=%PACKAGE_ROOT%\ReactorUMG"
 set "PACKAGED_PLUGIN_DIR=%PACKAGE_DIR%\ReactorUMG"
 
 echo Packaging plugin via RunUAT...
-call "%RUNUAT%" BuildPlugin -Plugin="%UPLUGIN%" -Package="%PACKAGE_DIR%" -CreateSubFolder -nocompile -nocompileuat
+call "%RUNUAT%" BuildPlugin -Plugin="%UPLUGIN%" -Package="%PACKAGE_DIR%" -CreateSubFolder -TargetPlatforms=Win64+Android -nocompile -nocompileuat
 if errorlevel 1 exit /b %ERRORLEVEL%
 
 if not exist "%PACKAGED_PLUGIN_DIR%\" (

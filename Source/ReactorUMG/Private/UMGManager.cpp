@@ -16,6 +16,7 @@
 #include "Components/Widget.h"
 #include "Runtime/Launch/Resources/Version.h"
 #include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
 
 #ifdef RIVE_SUPPORT
 #include "IRiveRendererModule.h"
