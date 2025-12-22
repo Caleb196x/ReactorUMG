@@ -31,6 +31,7 @@
 #include <spine/SpineString.h>
 
 #include <assert.h>
+#include <stdio.h>
 
 using namespace spine;
 

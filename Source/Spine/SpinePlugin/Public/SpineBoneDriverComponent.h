@@ -39,23 +39,23 @@ class SPINEPLUGIN_API USpineBoneDriverComponent : public USceneComponent {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SpinePlugin|SpineBone")
 	AActor *Target = 0;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SpinePlugin|SpineBone")
 	FString BoneName;
 
 	//Uses just this component when set to true. Updates owning actor otherwise.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SpinePlugin|SpineBone")
 	bool UseComponentTransform = false;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SpinePlugin|SpineBone")
 	bool UsePosition = true;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SpinePlugin|SpineBone")
 	bool UseRotation = true;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SpinePlugin|SpineBone")
 	bool UseScale = true;
 
 	USpineBoneDriverComponent();

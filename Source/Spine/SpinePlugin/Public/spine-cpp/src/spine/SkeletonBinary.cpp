@@ -73,6 +73,7 @@
 #include <spine/TranslateTimeline.h>
 #include <spine/SequenceTimeline.h>
 #include <spine/Version.h>
+#include <string.h>
 
 using namespace spine;
 

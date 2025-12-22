@@ -7,6 +7,8 @@
  */
 
 // TODO: 静态库11.8 window调试崩溃
+#include "V8InspectorImpl.h"
+#include "HAL/Platform.h"
 
 #if defined(UE_GAME) || defined(UE_EDITOR) || defined(UE_SERVER) || defined(USING_IN_UNREAL_ENGINE)
 #define USING_UE 1
@@ -15,8 +17,6 @@
 #endif
 
 #if (PLATFORM_WINDOWS || PLATFORM_MAC || PLATFORM_LINUX || defined(WITH_INSPECTOR)) && !defined(WITHOUT_INSPECTOR)
-
-#include "V8InspectorImpl.h"
 
 #if USING_UE
 #include "UECompatible.h"

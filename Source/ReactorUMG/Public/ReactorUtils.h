@@ -1,4 +1,7 @@
 #pragma once
+#include "HAL/PlatformFileManager.h"
+#include "GenericPlatform/GenericPlatformFile.h"
+#include "CoreMinimal.h"
 
 class REACTORUMG_API FReactorUtils
 {

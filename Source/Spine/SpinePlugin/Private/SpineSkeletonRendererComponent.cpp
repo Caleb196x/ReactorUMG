@@ -33,6 +33,10 @@
 #include "Materials/MaterialInstanceDynamic.h"
 #include "spine/spine.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Runtime/Launch/Resources/Version.h"
+#include "Engine/World.h"
+#include "PhysicsEngine/BodySetup.h"
+
 #if ENGINE_MAJOR_VERSION >= 5
 #include "PhysicsEngine/BodySetup.h"
 #endif

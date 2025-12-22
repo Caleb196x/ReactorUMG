@@ -40,6 +40,7 @@ THE SOFTWARE.
 
 #include <assert.h>
 #include <math.h>
+#include <stdio.h>
 
 using namespace spine;
 

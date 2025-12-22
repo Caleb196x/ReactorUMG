@@ -34,12 +34,12 @@
 #define DLLIMPORT __declspec(dllimport)
 #define DLLEXPORT __declspec(dllexport)
 #else
-#ifndef DLLIMPORT
+/*#ifndef DLLIMPORT
 #define DLLIMPORT
 #endif
 #ifndef DLLEXPORT
 #define DLLEXPORT
-#endif
+#endif*/
 #endif
 
 #ifdef SPINEPLUGIN_API

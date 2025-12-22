@@ -82,13 +82,13 @@ public:
 	void DeleteRelativeDirectories(const FAssetData& AssetData, const FName& BPName, const FString& BPPath);
 	FString GetDestFilePath(const FString& SourceFilePath) const;
 	
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="ReactorUMGEditor|UMGBlueprint")
 	FString GetTsProjectDir() const { return TsProjectDir; }
 	
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="ReactorUMGEditor|UMGBlueprint")
 	FString GetTsScriptHomeFullDir() const { return TsScriptHomeFullDir; }
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="ReactorUMGEditor|UMGBlueprint")
 	FString GetTsScriptHomeRelativeDir() const { return TsScriptHomeRelativeDir; }
 
 	UPROPERTY()

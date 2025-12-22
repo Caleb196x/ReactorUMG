@@ -39,13 +39,13 @@ struct SPINEPLUGIN_API FSpineAnimationStateMixData {
 	GENERATED_BODY();
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SpinePlugin|SpineSkel")
 	FString From;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SpinePlugin|SpineSkel")
 	FString To;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SpinePlugin|SpineSkel")
 	float Mix = 0;
 };
 
@@ -65,25 +65,25 @@ public:
 
 	virtual void BeginDestroy() override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SpinePlugin|SpineSkel")
 	float DefaultMix = 0;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SpinePlugin|SpineSkel")
 	TArray<FSpineAnimationStateMixData> MixData;
 
-	UPROPERTY(Transient, VisibleAnywhere)
+	UPROPERTY(Transient, VisibleAnywhere, Category="SpinePlugin|SpineSkel")
 	TArray<FString> Bones;
 
-	UPROPERTY(Transient, VisibleAnywhere)
+	UPROPERTY(Transient, VisibleAnywhere, Category="SpinePlugin|SpineSkel")
 	TArray<FString> Slots;
 
-	UPROPERTY(Transient, VisibleAnywhere)
+	UPROPERTY(Transient, VisibleAnywhere, Category="SpinePlugin|SpineSkel")
 	TArray<FString> Skins;
 
-	UPROPERTY(Transient, VisibleAnywhere)
+	UPROPERTY(Transient, VisibleAnywhere, Category="SpinePlugin|SpineSkel")
 	TArray<FString> Animations;
 
-	UPROPERTY(Transient, VisibleAnywhere)
+	UPROPERTY(Transient, VisibleAnywhere, Category="SpinePlugin|SpineSkel")
 	TArray<FString> Events;
 
 protected:

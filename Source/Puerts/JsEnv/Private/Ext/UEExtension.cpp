@@ -9,6 +9,7 @@
 #include "CoreMinimal.h"
 #include "Binding.hpp"
 #include "UEDataBinding.hpp"
+#include "Engine/HitResult.h"
 #include "V8Utils.h"
 #if !defined(ENGINE_INDEPENDENT_JSENV)
 #include "Kismet/DataTableFunctionLibrary.h"

@@ -7,6 +7,8 @@
  */
 
 #include "JSClassRegister.h"
+#include "UObject/Package.h"
+
 #if USING_IN_UNREAL_ENGINE
 #include "UObject/Class.h"
 #endif

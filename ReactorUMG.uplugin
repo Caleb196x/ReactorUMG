@@ -3,11 +3,11 @@
 	"Version": 1,
 	"VersionName": "1.0",
 	"FriendlyName": "ReactorUMG",
-	"Description": "",
-	"Category": "Other",
+	"Description": "ReactorUMG is a helper plugin for Unreal Engine that lets you build UMG game UI and editor UI using React framework.",
+	"Category": "UI",
 	"CreatedBy": "Caleb196x",
 	"CreatedByURL": "",
-	"DocsURL": "",
+	"DocsURL": "https://caleb196x.github.io/ReactorUMGOnlineDoc/",
 	"MarketplaceURL": "",
 	"SupportURL": "",
 	"CanContainContent": true,
@@ -19,7 +19,7 @@
 			"Name": "ReactorUMG",
 			"Type": "Runtime",
 			"LoadingPhase": "PostDefault",
-			"WhitelistPlatforms": [
+			"PlatformAllowList": [
 				"Win64"
 			]
 		},
@@ -27,7 +27,7 @@
 			"Name": "ReactorUMGEditor",
 			"Type": "Editor",
 			"LoadingPhase": "PostDefault",
-			"WhitelistPlatforms": [
+			"PlatformAllowList": [
 				"Win64"
 			]
 		},
@@ -35,7 +35,7 @@
 			"Name": "WasmCore",
 			"Type": "Runtime",
 			"LoadingPhase": "PreDefault",
-			"WhitelistPlatforms": [
+			"PlatformAllowList": [
 				"Win64",
 				"Android",
 				"Mac",
@@ -47,7 +47,7 @@
 			"Name": "JsEnv",
 			"Type": "Runtime",
 			"LoadingPhase": "PreDefault",
-			"WhitelistPlatforms": [
+			"PlatformAllowList": [
 				"Win64",
 				"Android",
 				"Mac",
@@ -69,7 +69,7 @@
 			"Name": "Puerts",
 			"Type": "Runtime",
 			"LoadingPhase": "PostEngineInit",
-			"WhitelistPlatforms": [
+			"PlatformAllowList": [
 				"Win64",
 				"Android",
 				"Mac",
@@ -81,7 +81,7 @@
 			"Name": "PuertsEditor",
 			"Type": "Editor",
 			"LoadingPhase": "PreDefault",
-			"WhitelistPlatforms": [
+			"PlatformAllowList": [
 				"Win64",
 				"Android",
 				"Mac",
@@ -93,7 +93,7 @@
 			"Name": "SpinePlugin",
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
-			"WhitelistPlatforms": [
+			"PlatformAllowList": [
 				"Win64"
 			]
 		},

@@ -21,6 +21,6 @@ public:
 	UFUNCTION()
 	void OnLatentActionCompleted(int32 LinkID);
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="Reactor|LatentState")
 	FLatentActionInfo GetLatentActionInfo();
 };

@@ -14,6 +14,8 @@
 #include "Blueprint/WidgetTree.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Components/Widget.h"
+#include "Runtime/Launch/Resources/Version.h"
+#include "Misc/FileHelper.h"
 
 #ifdef RIVE_SUPPORT
 #include "IRiveRendererModule.h"

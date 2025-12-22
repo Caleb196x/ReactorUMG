@@ -43,7 +43,7 @@ class SPINEPLUGIN_API USpineAtlasAsset : public UPrimaryDataAsset {
 public:
 	spine::Atlas *GetAtlas();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SpinePlugin|SpineAltlas")
 	TArray<UTexture2D *> atlasPages;
 
 	void SetRawData(const FString &RawData);

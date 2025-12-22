@@ -16,7 +16,7 @@ public:
 	void SetupMonitorForTsScripts();
 	void SetupTsScripts(const FReactorUMGCompilerLog& CompilerResultsLogger, bool bForceCompile = false, bool bForceReload = false);
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category="ReactorUMGEditor|UMGBlueprint")
 	void ForceDeleteAssets(const TArray<UObject*>& InAssetsToDelete);
 
 	FORCEINLINE FString GetMainScriptPath() const { if (ReactorUMGCommonBP) return ReactorUMGCommonBP->MainScriptPath;  return TEXT("");  }

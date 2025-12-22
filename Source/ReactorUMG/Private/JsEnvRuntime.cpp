@@ -4,6 +4,8 @@
 #include "LogReactorUMG.h"
 #include "ReactorUtils.h"
 #include "PuertsSetting.h"
+#include "Misc/Paths.h"
+#include "HAL/PlatformFileManager.h"
 
 void FReactorUMGJSLogger::Log(const FString& Message) const
 {
