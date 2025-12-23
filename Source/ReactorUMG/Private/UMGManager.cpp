@@ -59,8 +59,6 @@ USpineAtlasAsset* UUMGManager::LoadSpineAtlas(UObject* Context, const FString& A
         return nullptr;
     }
     
-    UE_LOG(LogReactorUMG, Log, TEXT("Spine atlas asset file( %s ) exists, RawData size %llu."), *AssetFilePath, RawData.NumBytesWithoutNull());
-
     USpineAtlasAsset* SpineAtlasAsset = NewObject<USpineAtlasAsset>(Context, USpineAtlasAsset::StaticClass(),
         NAME_None, RF_Public|RF_Transient);
     SpineAtlasAsset->SetRawData(RawData);
