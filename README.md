@@ -51,7 +51,7 @@ To solve this, we built the ReactorUMG plugin. **ReactorUMG** lets you use **nat
 + **AI-assisted development**: Use AI Coding to quickly build editor tool panels, runtime UI, and reusable component libraries.
 + **Live preview**: Hot-reload validation and in-editor live preview to verify layout and interaction quickly.
 + **Comprehensive examples**: Samples and templates from beginner to advanced.
-+ **UI animation**: Import Spine animations.
++ **Animation**: Import Spine animations.
 
 ---
 
@@ -59,7 +59,7 @@ To solve this, we built the ReactorUMG plugin. **ReactorUMG** lets you use **nat
 
 + Unreal Engine **5.x**
 + **Node.js >= 18** and **Yarn / PNPM / NPM** (choose one)
-+ VSCode / Cursor (recommended)
++ VSCode / Cursor
 + Windows 10/11, Linux
 
 ---
@@ -82,11 +82,19 @@ See the docs: https://caleb196x.github.io/ReactorUMGOnlineDoc/quickstart/
 
 <h2 id="faq">FAQ</h2>
 
-**Q: **
+Here is the English translation of your text:
 
+**Q: What is the relationship with native UMG/Slate?**
+**A:** ReactorUMG is designed for teams that "build UI with React" and complements UMG/Slate; it still relies on UE's UI rendering system and script bridging at the low level.
 
-**Q: **
+**Q: How to perform a full compilation of the TypeScript project?**
+**A:** Execute `yarn build` in the TypeScript directory.
 
+**Q: The UI interface cannot run after packaging.**
+**A:** Check if the `Additional Non-Asset Directories to Package` setting includes the `JavaScript` directory.
+
+**Q: How to update the puerts index files under types/ue?**
+**A:** Execute `ReactorUMG.GenDTS` in the Editor's Console Command.
 
 ---
 
@@ -129,7 +137,7 @@ This project uses the **MIT License**. See **LICENSE** for details.
 + **Issues and Suggestions (Issues)**: https://github.com/Caleb196x/ReactorUMG/issues
 + **Discussion Board (Discussions)**: 
   + Discord: https://discord.gg/E9672n9me7
-  + QQ: 
+  + QQ: **1020173543**
 
 ---
 

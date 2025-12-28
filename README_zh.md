@@ -50,7 +50,7 @@ ReactorUMG是一款可以帮助您在虚幻引擎（Unreal Engine）中使用 **
 + **AI辅助开发**：使用 AICoding 快速搭建编辑器工具面板、运行时UI、设计可复用组件库等。
 + **实时预览**：热重载验证、编辑器实时预览，快速验证布局与交互。
 + **示例齐全**：提供从入门到进阶的示例与模板。
-+ **UI动画**: 支持导入spine动画。
++ **动画**: 支持导入spine二维动画。
 
 ---
 
@@ -58,7 +58,7 @@ ReactorUMG是一款可以帮助您在虚幻引擎（Unreal Engine）中使用 **
 
 + Unreal Engine **5.x**
 + **Node.js ≥ 18** 与 **Yarn / PNPM / NPM**（任选其一）
-+ VSCode / Cursor（建议）
++ VSCode / Cursor
 + Windows 10/11，Linux
 
 ---
@@ -81,19 +81,27 @@ ReactorUMG是一款可以帮助您在虚幻引擎（Unreal Engine）中使用 **
 <h2 id="faq">FAQ</h2>
 
 **Q: 和原生 UMG/Slate 的关系？**  
-A: ReactorUMG 面向“用 React 构建 UI”的团队，与 UMG/Slate 互补；底层仍依赖 UE 的 UI 渲染体系与脚本桥接。
+**A:**: ReactorUMG 面向“用 React 构建 UI”的团队，与 UMG/Slate 互补；底层仍依赖 UE 的 UI 渲染体系与脚本桥接。
 
-**Q: 性能如何？**  
-A: UI 复杂度与状态变更频率会影响性能。推荐进行组件颗粒度控制、状态下沉、减少不必要重渲染，并按需关闭开发时的调试开销。
+**Q: 如何全量编译TS项目**  
+**A:**: 在TypeScript目录下执行`yarn build`。
+
+**Q: 打包后UI界面无法执行**  
+**A:**: 检查`Additional Non-Asset Directories to Package`选项是否包含了`JavaScript`目录。
+
+**Q: 如何更新types/ue下的puerts索引文件**  
+**A:**：在Editor的`Console Command`中执行`ReactorUMG.GenDTS`。
 
 ---
 
 <h2 id="c644eeae">路线图</h2>
 
 - [x] 支持基本react原生组件和基础CSS样式
+- [ ] 脚本混淆打包
 - [ ] 设计以ReactorUMG为核心的组件库，提供复杂游戏UI开发能力，提高运行效率和稳定性
 - [ ] 支持tailwind css
-...
+- [ ] 支持UI动画
+- [ ] ...
 
 想要的功能不在清单里？欢迎在 Issues 中提交需求。
 
@@ -121,10 +129,12 @@ A: UI 复杂度与状态变更频率会影响性能。推荐进行组件颗粒�
 
 + **文档主页**：https://caleb196x.github.io/ReactorUMGOnlineDoc/
 + **示例工程**：https://github.com/Caleb196x/ReactorUMGDemo
-+ + **TypeScript部分实现**：https://github.com/Caleb196x/ReactorUMG-TS
-+ **发行版下载（Releases）**：__
-+ **问题与建议（Issues）**：__
-+ **讨论区（Discussions）**：__
++ **TypeScript部分实现**：https://github.com/Caleb196x/ReactorUMG-TS
++ **发行版下载（Releases）**：https://github.com/Caleb196x/ReactorUMG/releases
++ **问题与建议（Issues）**：https://github.com/Caleb196x/ReactorUMG/issues
++ **讨论区（Discussions）**：  
+  + Discord: https://discord.gg/E9672n9me7
+  + QQ: **1020173543**
 
 ---
 
