@@ -20,7 +20,6 @@ The plugin is built on **PuertTS** scripting and pairs with AI assistance so you
 ⚠️ **Before you start**: Please read the FAQ first to avoid known pitfalls.
 
 ---
-https://github.com/Caleb196x/ReactorUMG/blob/main/docs/video/reactorUMG.mp4
 
 [跳转到中文](./README_zh.md)
 
