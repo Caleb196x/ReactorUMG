@@ -15,15 +15,17 @@ The plugin is built on **PuertTS** scripting and pairs with AI assistance so you
 
 > **Keywords:** Unreal Engine, UE5, UMG, UI, Slate, React, TypeScript, Plugin, Hot Reload, Live Preview, Puerts
 
-⚠️ **Alpha stage**: The API and structure may still change; an official version will be released once stabilized. Given that in-game UIs typically have high visual and interactive complexity, the current version of the plugin still has limitations in adaptation completeness and cannot fully meet the presentation requirements of production-level game UIs. **Therefore, at this stage, we strongly recommend prioritizing its application to UI development for editor extension tools, to improve tool development efficiency.**
-
-⚠️ **Before you start**: Please read the FAQ first to avoid known pitfalls.
-
 ---
 
 
 https://github.com/user-attachments/assets/36417479-f78c-4d2c-aaf2-029aadb4ebcd
 
+
+⚠️ **Alpha stage**: The API and structure may still change; an official version will be released once stabilized. Given that in-game UIs typically have high visual and interactive complexity, the current version of the plugin still has limitations in adaptation completeness and cannot fully meet the presentation requirements of production-level game UIs. **Therefore, at this stage, we strongly recommend prioritizing its application to UI development for editor extension tools, to improve tool development efficiency.**
+
+⚠️ **Before you start**: Please read the FAQ first to avoid known pitfalls.
+
+---
 
 
 [跳转到中文](./README_zh.md)
