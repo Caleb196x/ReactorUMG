@@ -68,7 +68,7 @@ To solve this, we built the ReactorUMG plugin. **ReactorUMG** lets you use **nat
 + Unreal Engine **5.x**
 + **Node.js >= 18** and **Yarn / PNPM / NPM** (choose one)
 + VSCode / Cursor
-+ Windows 10/11, Linux
++ Windows 10/11
 
 ---
 
